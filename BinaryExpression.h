@@ -10,6 +10,7 @@
 #include "Expression.h"
 
 class BinaryExpression : public Expression {
+protected:
     Expression* left;
     Expression* right;
     double numl;

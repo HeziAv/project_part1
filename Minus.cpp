@@ -1,7 +1,7 @@
 //
 // Created by hezi on 12/17/18.
 //
-//gad!!!
+
 #include "Minus.h"
 
 

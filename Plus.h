@@ -9,11 +9,9 @@
 #include "BinaryExpression.h"
 
 class Plus : public BinaryExpression {
-    Expression* left;
-    Expression* right;
 
 public:
-    Plus(Expression* left,Expression* right);
+    Plus(Expression* left,Expression* right):BinaryExpression(left,right){ }
     virtual double calculate();
 
 };
