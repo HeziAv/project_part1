@@ -17,5 +17,5 @@ list<string> Interpeter::lexer(string str) {
         string object;
         object.push_back(str[index]);
     }
-    //conregregre
+    return listOfStrings;
 }

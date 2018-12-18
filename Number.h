@@ -9,8 +9,10 @@
 #include "Expression.h"
 
 class Number : public Expression {
+protected:
     double num;
 public:
+    Number(double n);
     virtual double calculate();
 
 };

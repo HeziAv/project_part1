@@ -10,8 +10,9 @@
 
 class Div : public BinaryExpression {
 
-
     Div(Expression* left,Expression* right):BinaryExpression(left,right){}
+
+
     virtual double calculate();
 
 };

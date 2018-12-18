@@ -18,7 +18,7 @@ protected:
 public:
     BinaryExpression(Expression* left,Expression* right);
     BinaryExpression(){};
-    virtual double calculate();
+    virtual double calculate()=0;
 
 };
 

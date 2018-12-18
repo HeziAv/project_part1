@@ -4,3 +4,7 @@
 
 #include "Number.h"
 
+Number::Number(double n) {
+    this->num=n;
+}
+
