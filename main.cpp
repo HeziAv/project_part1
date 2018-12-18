@@ -16,10 +16,6 @@ int main() {
 
 
 
-// 3+(4/2)*5
-
-    //Expression* y = new Var("x");
-
     Expression* e=new Neg(new Plus(new Var("x") , new Mul( new Div(new Number(4), new Number(2)) , new Number(5))));
 
     double a=0;
