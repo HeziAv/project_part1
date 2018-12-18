@@ -12,9 +12,9 @@ class Number : public Expression {
 protected:
     double num;
 public:
-    Number(double n);
-    virtual double calculate(map<string,double> SymTbl);
-    double getNumber();
+    explicit Number(double n);
+    virtual double calculate();
+
 };
 
 

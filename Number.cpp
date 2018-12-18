@@ -8,10 +8,6 @@ Number::Number(double n) {
     this->num=n;
 }
 
-double Number::calculate(map<string,double> SymTbl){
-    return this->num;
-}
-
-double Number::getNumber() {
+double Number::calculate() {
     return this->num;
 }
