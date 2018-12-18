@@ -9,6 +9,6 @@ Neg::Neg(Expression *ex) {
 }
 
 
-double Neg::calculate() {
-    return -this->ex->calculate();
+double Neg::calculate(map<string,double> SymTbl) {
+    return -this->ex->calculate(SymTbl);
 }

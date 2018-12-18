@@ -18,7 +18,7 @@ protected:
 public:
     BinaryExpression(Expression* left,Expression* right);
     BinaryExpression(){};
-    virtual double calculate()=0;
+    virtual double calculate(map<string,double> SymTbl)=0;
 
 };
 

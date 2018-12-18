@@ -10,10 +10,10 @@
 
 class Div : public BinaryExpression {
 
+public:
     Div(Expression* left,Expression* right):BinaryExpression(left,right){}
 
-
-    virtual double calculate();
+    virtual double calculate(map<string,double> SymTbl);
 
 };
 

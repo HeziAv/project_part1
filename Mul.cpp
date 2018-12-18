@@ -6,6 +6,6 @@
 
 
 
-double Mul::calculate() {
-    return ((this->left)->calculate() * (this->right)->calculate());
+double Mul::calculate(map<string,double> SymTbl) {
+    return ((this->left)->calculate(SymTbl) * (this->right)->calculate(SymTbl));
 }

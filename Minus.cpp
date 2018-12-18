@@ -6,6 +6,6 @@
 
 
 
-double Minus::calculate() {
-    return ((this->left)->calculate() - (this->right)->calculate());
+double Minus::calculate(map<string,double> SymTbl) {
+    return ((this->left)->calculate(SymTbl) - (this->right)->calculate(SymTbl));
 }

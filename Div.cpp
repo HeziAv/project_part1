@@ -6,6 +6,6 @@
 
 
 
-double Div::calculate() {
-    return ((this->left)->calculate() / (this->right)->calculate());
+double Div::calculate(map<string,double> SymTbl) {
+    return ((this->left)->calculate(SymTbl) / (this->right)->calculate(SymTbl));
 }

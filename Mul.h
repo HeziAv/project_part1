@@ -14,7 +14,7 @@ class Mul : public BinaryExpression {
 public:
 
     Mul(Expression* left,Expression* right):BinaryExpression(left,right){}
-    double calculate();
+    double calculate(map<string,double> SymTbl);
 
 };
 

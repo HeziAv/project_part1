@@ -14,7 +14,7 @@ class UnaryExpression : public Expression {
 public:
     UnaryExpression(Expression* ex);
     UnaryExpression(){};
-    virtual double calculate()=0;
+    virtual double calculate(map<string,double> SymTbl)=0;
 
 
 };
