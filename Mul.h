@@ -9,12 +9,12 @@
 #include "BinaryExpression.h"
 
 class Mul : public BinaryExpression {
-    Expression* left;
-    Expression* right;
+
 
 public:
-    Mul(Expression* left,Expression* right);
-    virtual double calculate();
+
+    Mul(Expression* left,Expression* right):BinaryExpression(left,right){}
+    double calculate();
 
 };
 

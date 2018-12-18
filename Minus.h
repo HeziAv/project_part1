@@ -9,10 +9,9 @@
 #include "BinaryExpression.h"
 
 class Minus : public BinaryExpression {
-    Expression* left;
-    Expression* right;
 
-    Minus(Expression* left,Expression* right);
+    Minus(Expression* left,Expression* right):BinaryExpression(left,right){}
+
     virtual double calculate();
 
 };
