@@ -13,7 +13,9 @@ class Command {
     list<string> ls;
 public:
     virtual void doCommand(){};
-    virtual void setListOfString(){};
+    virtual void setListOfString(list<string> ls){
+        this->ls=ls;
+    };
 
 };
 
