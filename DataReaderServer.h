@@ -7,13 +7,11 @@
 
 
 class DataReaderServer {
+
     int port;
     int Hz;
 public:
-    DataReaderServer (int port, int Hz){
-        this->port=port;
-        this->Hz=Hz;
-    }
+    DataReaderServer (int port, int Hz);
 
     void server_sock();
     void client_sock(int argc, char *argv[]);

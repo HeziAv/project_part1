@@ -14,7 +14,7 @@ class OpenServerCommand : public Command {
 
 public:
     OpenServerCommand(){};
-    virtual void doCommand();
+    virtual double doCommand();
     virtual void setParameters(list<string> ls);
     virtual int parameterAmount();
 };

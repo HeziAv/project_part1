@@ -19,12 +19,17 @@
 #include <netinet/in.h>
 #include <string.h>
 
+DataReaderServer::DataReaderServer(int port1, int Hz1) {
+    this->port = port1;
+    this->Hz = Hz1;
+}
+
 
 void DataReaderServer::server_sock() {
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
-    int  n;
+    int n;
 
     /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -52,11 +57,11 @@ void DataReaderServer::server_sock() {
        * go in sleep mode and will wait for the incoming connection
     */
 
-    listen(sockfd,5);
+    listen(sockfd, 5);
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
 
     if (newsockfd < 0) {
         perror("ERROR on accept");
@@ -64,18 +69,18 @@ void DataReaderServer::server_sock() {
     }
 
     /* If connection is established then start communicating */
-    bzero(buffer,256);
-    n = read( newsockfd,buffer,255 );
+    bzero(buffer, 256);
+    n = read(newsockfd, buffer, 255);
 
     if (n < 0) {
         perror("ERROR reading from socket");
         exit(1);
     }
 
-    printf("Here is the message: %s\n",buffer);
+    printf("Here is the message: %s\n", buffer);
 
     /* Write a response to the client */
-    n = write(newsockfd,"I got your message",18);
+    n = write(newsockfd, "I got your message", 18);
 
     if (n < 0) {
         perror("ERROR writing to socket");
@@ -83,7 +88,6 @@ void DataReaderServer::server_sock() {
     }
 
 }
-
 
 
 void DataReaderServer::client_sock(int argc, char *argv[]) {
@@ -94,7 +98,7 @@ void DataReaderServer::client_sock(int argc, char *argv[]) {
     char buffer[256];
 
     if (argc < 3) {
-        fprintf(stderr,"usage %s hostname port\n", argv[0]);
+        fprintf(stderr, "usage %s hostname port\n", argv[0]);
         exit(0);
     }
 
@@ -111,17 +115,17 @@ void DataReaderServer::client_sock(int argc, char *argv[]) {
     server = gethostbyname(argv[1]);
 
     if (server == NULL) {
-        fprintf(stderr,"ERROR, no such host\n");
+        fprintf(stderr, "ERROR, no such host\n");
         exit(0);
     }
 
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
+    bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
     serv_addr.sin_port = htons(portno);
 
     /* Now connect to the server */
-    if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
+    if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
         perror("ERROR connecting");
         exit(1);
     }
@@ -131,8 +135,8 @@ void DataReaderServer::client_sock(int argc, char *argv[]) {
     */
 
     printf("Please enter the message: ");
-    bzero(buffer,256);
-    fgets(buffer,255,stdin);
+    bzero(buffer, 256);
+    fgets(buffer, 255, stdin);
 
     /* Send message to the server */
     n = write(sockfd, buffer, strlen(buffer));
@@ -143,7 +147,7 @@ void DataReaderServer::client_sock(int argc, char *argv[]) {
     }
 
     /* Now read server response */
-    bzero(buffer,256);
+    bzero(buffer, 256);
     n = read(sockfd, buffer, 255);
 
     if (n < 0) {
@@ -151,6 +155,6 @@ void DataReaderServer::client_sock(int argc, char *argv[]) {
         exit(1);
     }
 
-    printf("%s\n",buffer);
+    printf("%s\n", buffer);
 
 }

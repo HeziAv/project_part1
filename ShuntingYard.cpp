@@ -2,11 +2,11 @@
 #include <algorithm>
 #include <bits/stdc++.h>
 #include "ShuntingYard.h"
-#include "Number.cpp"
-#include "Minus.cpp"
-#include "Plus.cpp"
-#include "Mul.cpp"
-#include "Div.cpp"
+#include "Number.h"
+#include "Minus.h"
+#include "Plus.h"
+#include "Mul.h"
+#include "Div.h"
 #include <string>
 
 
