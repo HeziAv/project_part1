@@ -66,6 +66,7 @@ void DataReaderServ::server_Sock() {
 
 /* If connection is established then start communicating */
     bzero(buffer, 256);
+    //sleep for this->Hz
     n = read(newsockfd, buffer, 255);
 
     if (n < 0) {

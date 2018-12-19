@@ -28,7 +28,7 @@ void DataWriterServer::client_sock() {
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
+//setsocket id to data
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);
@@ -61,6 +61,7 @@ void DataWriterServer::client_sock() {
     fgets(buffer,255,stdin);
 
     /* Send message to the server */
+
     n = write(sockfd, buffer, strlen(buffer));
 
     if (n < 0) {
