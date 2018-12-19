@@ -43,6 +43,14 @@ list<string> Interpeter::lexer(string str) {
                 if(var == 1){
                     if(str[index] == '_'){
                         object.push_back(str[index]);
+                        index++;
+                        continue;
+                    }
+                }
+                if(number == 1){
+                    if(str[index] == '.'){
+                        object.push_back(str[index]);
+                        index++;
                         continue;
                     }
                 }
