@@ -11,7 +11,7 @@
 using namespace std;
 
 class Interpeter {
-
+//gad
 public:
     list<string> lexer(string str);
     list<string> miniLexer(list<string> ls);

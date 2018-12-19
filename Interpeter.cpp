@@ -9,7 +9,7 @@
 #include <string>
 #include <regex>
 
-
+//gad
 using namespace std;
 
 list<string> Interpeter::lexer(string str) {
