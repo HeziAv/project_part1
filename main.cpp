@@ -13,7 +13,7 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    string q = "var =9-91 + roll 9";
+    string q = "var6v =9-91 + roll 9";
 
     Interpeter* inn = new Interpeter();
 

@@ -17,15 +17,15 @@ list<string> Interpeter::lexer(string str) {
     list<string> listOfStrings;
     string object;
     string num;
-    int string = 0;
     int number = 0;
+    int var = 0;
     while (index != str.length()) {
         if (str[index] != ' ') {
             if(object == "bind"){
                 break;
             }
             if((str[index] >= 65 && str[index]<= 90) || (str[index]>=  97 && str[index<=122])){
-                string = 1;
+                var = 1;
                 if(number == 1){
                     cout << "error" <<endl;
                     throw (0);
@@ -35,21 +35,19 @@ list<string> Interpeter::lexer(string str) {
                 continue;
             } else if(str[index] >= 48 && str[index]<= 57){
                 number = 1;
-                if(string == 1){
-                    cout << "error" <<endl;
-                    throw (0);
-                }
                 object.push_back(str[index]);
                 index++;
                 continue;
             } else{
+                if(var == 1){
+                    if(str[index])
+                }
                 if(object != ""){
                   listOfStrings.push_back(object);
                 }
                 object=str[index];
                 listOfStrings.push_back(object);
                 number = 0;
-                string = 0;
                 index++;
                 object = "";
                 continue;
@@ -64,7 +62,6 @@ list<string> Interpeter::lexer(string str) {
         listOfStrings.push_back(object);
         object = "";
         number = 0;
-        string = 0;
         index++;
      }
         while (str[index] == 32){
