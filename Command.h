@@ -12,10 +12,9 @@ using namespace std;
 class Command {
     list<string> ls;
 public:
-    virtual void doCommand(){};
-    virtual void setListOfString(list<string> ls){
-        this->ls=ls;
-    };
+    virtual double doCommand(){};
+    virtual void setParameters(list<string> ls){};
+    virtual int parameterAmount(){};
 
 };
 

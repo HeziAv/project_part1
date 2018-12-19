@@ -16,6 +16,15 @@ public:
     ExpressionCommand(Command* command);
     virtual double calculate(map<string,double> SymTbl);
 
+    virtual void setParameters(list<string> ls){
+        this->command->setParameters(ls);
+    }
+
+    virtual int parameterAmount(){
+        return this->command->parameterAmount();
+    }
+
+
 };
 
 

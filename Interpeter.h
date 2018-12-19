@@ -8,9 +8,19 @@
 #include <iterator>
 #include <string>
 #include <list>
+#include <map>
+#include "Command.h"
+#include "ExpressionCommand.h"
+#include "OpenServerCommand.h"
+
 using namespace std;
 
 class Interpeter {
+
+
+
+std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand())}};
+
 //gad
 public:
     list<string> lexer(string str);

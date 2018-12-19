@@ -3,6 +3,7 @@
 //
 
 #include "Interpeter.h"
+#include "ExpressionCommand.h"
 #include <iostream>
 #include <sstream>
 #include <iterator>
@@ -131,7 +132,22 @@ list<string> Interpeter::miniLexer(list<string> ls) {
 }
 
 void Interpeter::parser(list<string> ls) {
-        
+    list<string>::iterator it;
+    int i = 0;
+    for (it = ls.begin();it != ls.end();++it) {
+        ExpressionCommand* expressionCommand =  commandMap.find(*it)->second;
+
+        if(expressionCommand != NULL){
+
+           expressionCommand->setParameters(ls);
+           map<string,double> SymTbl;
+           expressionCommand->calculate(SymTbl);
+
+        }
+
+        i=i+1;
+    }
+
 
 
 }

@@ -9,8 +9,14 @@
 #include "Command.h"
 
 class OpenServerCommand : public Command {
+    string first;
+    string second;
+
+public:
+    OpenServerCommand(){};
     virtual void doCommand();
-    virtual void setListOfString(list<string> ls);
+    virtual void setParameters(list<string> ls);
+    virtual int parameterAmount();
 };
 
 
