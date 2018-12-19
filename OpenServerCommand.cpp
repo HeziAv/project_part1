@@ -14,14 +14,21 @@ double OpenServerCommand::doCommand() {
     vector<string> postfix;
     postfix = a.infixToPostfix(this->first);
     Expression* ExFirst = a.stringToExpression(postfix);
+
+
     postfix = a.infixToPostfix(this->second);
     Expression* ExSecond = a.stringToExpression(postfix);
+
     map<string,double> SymTbl;
     int port = (int)ExFirst->calculate(SymTbl);
+    cout<<port<<endl;
+
     int Hz = (int)ExSecond->calculate(SymTbl);
-//    DataReaderServer* drs = new DataReaderServer(port,Hz);
-//    drs->server_sock();
-    return parameterAmount();
+    cout<<Hz<<endl;
+    DataReaderServer* drs = new DataReaderServer(port,Hz);
+    drs->server_Sock();
+    return 2;
+
 }
 
 int OpenServerCommand::parameterAmount(){
@@ -38,10 +45,10 @@ void OpenServerCommand::setParameters(list<string> ls) {
         if (i==2){
             this->second=*it;
         }
-        i=i+1;
         if (i>2){
             cout<<"error"<<endl;
             throw 0;
         }
+        i = i + 1;
     }
 }

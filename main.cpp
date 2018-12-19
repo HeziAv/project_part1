@@ -13,19 +13,19 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    string q = "openDataServer 5400 10";
+    string q = "openDataServer 5300+100  10";
 
     Interpeter* inn = new Interpeter();
 
     list<string> ls;
     ls = inn->lexer(q);
 
-    //inn->parser(ls);
+    inn->parser(ls);
 
-    list<string>::iterator it;
-    for (it = ls.begin();it != ls.end();++it) {
-        cout << *it << '\n';
-    }
+//    list<string>::iterator it;
+//    for (it = ls.begin();it != ls.end();++it) {
+//        cout << *it << '\n';
+//    }
 
 
 

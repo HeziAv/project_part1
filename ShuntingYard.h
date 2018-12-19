@@ -15,7 +15,7 @@ using namespace std;
 class ShuntingYard {
 public:
     int getPriority(string C);
-    vector<string>  infixToPostfix(string infix);
+    vector<string>  infixToPostfix(string s);
     Expression* stringToExpression(vector<string> postfix);
     bool isOperator(char s);
     bool isOperatorS(string s);

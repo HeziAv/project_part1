@@ -28,24 +28,29 @@ vector<string> ShuntingYard::infixToPostfix(string s){
     stack<string> stack;
     stack.push("N");
     int l = s.length();
-    vector<string>  output;
+    vector<string> output;
+    string param;
     for(int i = 0; i < l; i++)
     {
         // If the scanned character is an operand, add it to output string.
         if(!isOperator(s[i]) && s[i]!= '(' && s[i]!= ')'){
-            string param = "";
             param.push_back(s[i]);
-            output.push_back(param);
         }
 
             // If the scanned character is an ‘(‘, push it to the stack.
-        else if(s[i] == '(')
-            stack.push("(");
+        else if(s[i] == '('){
+           output.push_back(param);
+           stack.push("(");
+           param = "";
+
+        }
 
             // If the scanned character is an ‘)’, pop and to output string from the stack
             // until an ‘(‘ is encountered.
         else if(s[i] == ')')
         {
+            output.push_back(param);
+            param = "";
             while(stack.top() != "N" && stack.top() != "(")
             {
                 string c = stack.top();
@@ -60,7 +65,9 @@ vector<string> ShuntingYard::infixToPostfix(string s){
         }
             //If an operator is scanned
         else{
-            string temp;
+            output.push_back(param);
+            param = "";
+            string temp = "";
             temp.push_back(s[i]);
             while(stack.top() != "N" && getPriority(temp) <= getPriority(stack.top()))
             {
@@ -68,10 +75,12 @@ vector<string> ShuntingYard::infixToPostfix(string s){
                 stack.pop();
                 output.push_back((c));
             }
-            temp = "";
-            temp.push_back(s[i]);
             stack.push(temp);
         }
+    }
+    if(param != ""){
+        output.push_back(param);
+        param = "";
     }
     //Pop all the remaining elements from the stack
     while(stack.top() != "N")
