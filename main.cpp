@@ -13,7 +13,7 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    string q = "connect 124.0.0.1 5402";
+    string q = "openDataServer 5400 100";
 
     Interpeter* inn = new Interpeter();
 

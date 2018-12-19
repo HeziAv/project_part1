@@ -4,8 +4,8 @@
 
 #include "Data.h"
 
-Data ::Data(map<string, double> SymTbl, map<string, string> bindMap) {
-    this->SymTbl = SymTbl;
-    this->bindMap = bindMap;
-}
+//Data ::Data(map<string, double> SymTbl, map<string, string> bindMap) {
+//    this->SymTbl = SymTbl;
+//    this->bindMap = bindMap;
+//}
 
