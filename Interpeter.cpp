@@ -107,7 +107,7 @@ list<string> Interpeter::miniLexer(list<string> ls) {
                 newString = newString + *it;
                 newList.push_back(newString);
 
-            }else{
+            }else {
 
                 list<string>::iterator iit = newList.end();
                 --iit;
