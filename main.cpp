@@ -11,15 +11,15 @@
 
 
 int main() {
-//    Expression hezi = new BinaryExpression(5,7);
     std::cout << "Hello, World!" << std::endl;
 
-    string q = "var breaks = bind \"/controls/flight/speedbrake\"";
+    string q = "9 -9 roll";
 
     Interpeter* inn = new Interpeter();
 
     list<string> ls;
     ls = inn->lexer(q);
+
 
     list<string>::iterator it;
     for (it = ls.begin();it != ls.end();++it) {

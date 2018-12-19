@@ -14,6 +14,7 @@ class Interpeter {
 
 public:
     list<string> lexer(string str);
+    list<string> miniLexer(list<string> ls);
 };
 
 #endif //PROJECT_PART1_INTERPETER_H
