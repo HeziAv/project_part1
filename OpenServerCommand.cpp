@@ -5,7 +5,8 @@
 #include "OpenServerCommand.h"
 #include "Expression.h"
 #include "ShuntingYard.h"
-#include "DataReaderServer.h"
+
+#include "DataReaderServ.h"
 
 
 double OpenServerCommand::doCommand() {
@@ -25,7 +26,7 @@ double OpenServerCommand::doCommand() {
 
     int Hz = (int)ExSecond->calculate(SymTbl);
     cout<<Hz<<endl;
-    DataReaderServer* drs = new DataReaderServer(port,Hz);
+    DataReaderServ* drs = new DataReaderServ(port,Hz);
     drs->server_Sock();
     return 2;
 

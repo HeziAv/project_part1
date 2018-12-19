@@ -16,12 +16,8 @@
 using namespace std;
 
 class Interpeter {
-
-
-
 std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand())}};
 
-//gad
 public:
     list<string> lexer(string str);
     list<string> miniLexer(list<string> ls);
