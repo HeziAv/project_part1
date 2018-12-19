@@ -13,7 +13,7 @@ class DataWriterServer {
 int port;
 string address;
 
-
+public:
     DataWriterServer (int port1, string address1) {
         this->port = port1;
         this->address = address1;

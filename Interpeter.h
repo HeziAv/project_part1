@@ -12,6 +12,7 @@
 #include "Command.h"
 #include "ExpressionCommand.h"
 #include "OpenServerCommand.h"
+#include "connectCommand.h"
 
 using namespace std;
 

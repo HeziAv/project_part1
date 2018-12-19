@@ -13,7 +13,7 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    string q = "124.0.0.1 10";
+    string q = "connect 124.0.0.1 5402";
 
     Interpeter* inn = new Interpeter();
 
