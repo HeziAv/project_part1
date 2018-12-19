@@ -85,16 +85,21 @@ list<string> Interpeter::miniLexer(list<string> ls) {
     list<string>::iterator it;
     int flag = 0;
     for (it = ls.begin();it != ls.end();++it) {
-        while(*it != "+" && *it != "-" && *it !="/" && *it !="*"){
+        if(*it != "+" && *it != "-" && *it !="/" && *it !="*"){
             if(*it == "bind"){
                 return ls;
             }
             newList.push_back(*it);
-            ++it;
+            continue;
         }
             if(flag == 0){
                 flag = 1;
                 --it;
+                string temp = *it;
+                if(temp == "=" ){
+                  cout<<"error"<<endl;
+                  throw (0);
+                }
                 newList.pop_back();
                 string newString = "";
                 newString = newString + *it;
@@ -103,9 +108,16 @@ list<string> Interpeter::miniLexer(list<string> ls) {
                 ++it;
                 newString = newString + *it;
                 newList.push_back(newString);
+
             }else{
+
                 list<string>::iterator iit = newList.end();
                 --iit;
+                string check = *iit;
+                if(check == "=" ){
+                    cout<<"error"<<endl;
+                    throw (0);
+                }
                 string temp;
                 temp = *iit;
                 newList.pop_back();
