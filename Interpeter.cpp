@@ -41,7 +41,10 @@ list<string> Interpeter::lexer(string str) {
                 continue;
             } else{
                 if(var == 1){
-                    if(str[index])
+                    if(str[index] == '_'){
+                        object.push_back(str[index]);
+                        continue;
+                    }
                 }
                 if(object != ""){
                   listOfStrings.push_back(object);
@@ -49,6 +52,7 @@ list<string> Interpeter::lexer(string str) {
                 object=str[index];
                 listOfStrings.push_back(object);
                 number = 0;
+                var = 0;
                 index++;
                 object = "";
                 continue;
@@ -63,6 +67,7 @@ list<string> Interpeter::lexer(string str) {
         listOfStrings.push_back(object);
         object = "";
         number = 0;
+        var = 0;
         index++;
      }
         while (str[index] == 32){

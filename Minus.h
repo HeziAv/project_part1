@@ -10,6 +10,7 @@
 
 class Minus : public BinaryExpression {
 
+public:
     Minus(Expression* left,Expression* right):BinaryExpression(left,right){}
 
     virtual double calculate(map<string,double> SymTbl);

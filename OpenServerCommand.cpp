@@ -4,15 +4,19 @@
 
 #include "OpenServerCommand.h"
 #include "Expression.h"
+#include "ShuntingYard.h"
 
 
 void OpenServerCommand::doCommand() {
     //transform first to expression
     //transform second to expression
     //fixness check
-
-    Expression* ExFirst = shutingYard(this->first);
-    Expression* ExSecond = shutingYard(this->second);
+    ShuntingYard a;
+    vector<string> postfix;
+    postfix = a.infixToPostfix(this->first);
+    Expression* ExFirst = a.stringToExpression(postfix);
+    postfix = a.infixToPostfix(this->second);
+    Expression* ExSecond = a.stringToExpression(postfix);
     new dataReaderServer drs = new dataReaderServer(ExFirst.calculate();,ExSecond.calculate(); )
 
 }
