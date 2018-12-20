@@ -23,32 +23,12 @@ int main() {
     ls = inn->lexer(q);
     inn->parser(ls);
 
-   // ls = inn->lexer(w);
-    //inn->parser(ls);
-
-//    list<string>::iterator it;
-//    for (it = ls.begin();it != ls.end();++it) {
-//        cout << *it << '\n';
-//    }
+    std::cout << "Hello, World!" << std::endl;
 
 
+    while (true){
 
-    //Expression* e=new Neg(new Plus(new Var("x") , new Mul( new Div(new Number(4), new Number(2)) , new Number(5))));
-
-//    double a=0;
-//
-//
-//    map <string, double> mp;
-//
-//    mp.insert({"x",3});
-//
-//
-//    a = e->calculate(mp);
-//    std::cout << a << std::endl;
-
-
-
-
+    }
     return 0;
 }
 

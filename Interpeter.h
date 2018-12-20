@@ -17,10 +17,15 @@
 using namespace std;
 
 class Interpeter {
-    std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(
+    Data* data;
+    std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(data
 
             ))},{"connect",new ExpressionCommand(new connectCommand())}};
 public:
+    Interpeter(Data* data1){
+        data=data1;
+    }
+
     list<string> lexer(string str);
     list<string> miniLexer(list<string> ls);
     void parser (list<string> ls);

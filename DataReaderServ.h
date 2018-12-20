@@ -9,12 +9,16 @@
 class DataReaderServ {
     int port;
     int Hz;
+    int SocketId;
 public:
     DataReaderServ (int port, int Hz){
         this->port = port;
         this->Hz = Hz;
-    };
-    void server_Sock();
+    }
+
+    static void* server_Sock(void* arg);
+    int getSocketId();
+    void setSocketId(int var);
 
 };
 

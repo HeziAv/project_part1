@@ -18,8 +18,14 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
+struct MyParams {
+    int port;
+    //Data data;
+};
 
-void DataReaderServ::server_Sock() {
+void* DataReaderServ::server_Sock(void* arg) {
+    struct MyParams *params = (struct MyParams *) arg;
+
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
@@ -33,9 +39,10 @@ void DataReaderServ::server_Sock() {
         exit(1);
     }
 
+
 /* Initialize socket structure */
     bzero((char *) &serv_addr, sizeof(serv_addr));
-    portno = this->port;
+    portno = params->port;
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
@@ -62,27 +69,37 @@ void DataReaderServ::server_Sock() {
         exit(1);
     }
 
-    std::cout<<"gad"<<std::endl;
-while(true){
+    std::cout << "gad" << std::endl;
+    while (true) {
 /* If connection is established then start communicating */
-    bzero(buffer, 256);
-    //sleep for this->Hz
-    n = read(newsockfd, buffer, 255);
+        bzero(buffer, 256);
+        //sleep for this->Hz
+        n = read(newsockfd, buffer, 255);
 
-    if (n < 0) {
-        perror("ERROR reading from socket");
-        exit(1);
-    }
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
 
-    printf("Here is the message: %s\n", buffer);
+       printf("Here is the message: %s\n", buffer);
+
 
 /* Write a response to the client */
-    n = write(newsockfd, "I got your message", 18);
+        n = write(newsockfd, "I got your message", 18);
 
-    if (n < 0) {
-        perror("ERROR writing to socket");
-        exit(1);
+        if (n < 0) {
+            perror("ERROR writing to socket");
+            exit(1);
+        }
     }
+
+
 }
 
+int DataReaderServ::getSocketId() {
+    return this->SocketId;
+}
+
+void DataReaderServ::setSocketId(int var) {
+    this->SocketId = var;
 }
