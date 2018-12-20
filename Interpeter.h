@@ -13,6 +13,7 @@
 #include "ExpressionCommand.h"
 #include "OpenServerCommand.h"
 #include "connectCommand.h"
+#include "EqualCommand.h"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ class Interpeter {
     Data* data;
     std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(data
 
-            ))},{"connect",new ExpressionCommand(new connectCommand())}};
+            ))},{"connect",new ExpressionCommand(new connectCommand(data))},{"=",new ExpressionCommand(new EqualCommand(data))}};
 public:
     Interpeter(Data* data1){
         data=data1;

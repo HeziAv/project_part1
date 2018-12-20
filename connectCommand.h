@@ -7,20 +7,21 @@
 
 
 #include "Command.h"
+#include "Data.h"
 
 class connectCommand : public Command {
     string address;
     string port;
+    Data* data;
 
 public:
-    connectCommand(){};
+
+    connectCommand(Data* data){
+        this->data=data;
+    };
     virtual double doCommand();
     virtual void setParameters(list<string> ls);
     virtual int parameterAmount();
-
-
-
-
 };
 
 

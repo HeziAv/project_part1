@@ -44,7 +44,10 @@ double OpenServerCommand::doCommand() {
     Expression *ExFirst = a.stringToExpression(postfix);
     postfix = a.infixToPostfix(this->second);
     Expression *ExSecond = a.stringToExpression(postfix);
+
     map<string, double> SymTbl;
+    SymTbl = data->getSymTbl();
+
     int port = (int) ExFirst->calculate(SymTbl);
     cout << port << endl;
     int Hz = (int) ExSecond->calculate(SymTbl);
@@ -79,6 +82,7 @@ void OpenServerCommand::setParameters(list<string> ls) {
         }
         i = i + 1;
     }
+
 }
 
 int OpenServerCommand::getSocketId() {

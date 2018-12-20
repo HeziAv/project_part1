@@ -18,8 +18,11 @@ using namespace std;
 
 struct MyParams {
     int port;
+    string address;
     Data data;
 };
+
+
 
 void* DataWriterServer::client_sock(void* arg) {
     struct MyParams *params = (struct MyParams *) arg;
@@ -27,8 +30,6 @@ void* DataWriterServer::client_sock(void* arg) {
     struct sockaddr_in serv_addr;
     struct hostent *server;
     char buffer[256];
-
-
 
     portno = params->port;
 
@@ -40,7 +41,7 @@ void* DataWriterServer::client_sock(void* arg) {
         exit(1);
     }
 
-    server = gethostbyname(this->address.c_str());
+    server = gethostbyname(params->address.c_str());
 
     if (server == NULL) {
         fprintf(stderr,"ERROR, no such host\n");

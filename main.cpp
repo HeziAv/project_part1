@@ -16,11 +16,13 @@ int main() {
     map<string,double> SymTbl;
     map<string,string> bindMap;
 
+
+
     Data* data = new Data(SymTbl,bindMap);
 
-    string q = "openDataServer 5400 100";
+    string q ="openDataServer 5400 10";
 
-//    string w = "connect 127.0.0.1 5402";
+//    string q = "connect 127.0.0.1 5402";
 
 
 Interpeter* inn = new Interpeter(data);
