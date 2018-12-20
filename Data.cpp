@@ -4,11 +4,19 @@
 
 #include "Data.h"
 
-//Data ::Data(map<string, double> SymTbl, map<string, string> bindMap) {
-//    this->SymTbl = SymTbl;
-//    this->bindMap = bindMap;
+map<string,double> Data::getSymTbl() {
+    return this->SymTbl;
+}
 
-    //
+map<string,string> Data::getbindMap() {
+    return this->bindMap;
+}
 
-//}
 
+void Data::setSymTbl(string first, double second) {
+    this->SymTbl[first] = second;
+}
+
+void Data::setbindMap(string first,string second) {
+    this->bindMap[first] = second;
+}
