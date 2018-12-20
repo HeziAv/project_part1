@@ -8,6 +8,7 @@
 
 #include "Command.h"
 #include "Data.h"
+//check
 
 class EqualCommand : public Command{
     list<string> ls;
