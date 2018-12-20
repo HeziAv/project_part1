@@ -29,6 +29,8 @@ public:
     list<string> lexer(string str);
     list<string> miniLexer(list<string> ls);
     void parser (list<string> ls);
-};
+    bool isOperator(char s);
+
+    };
 
 #endif //PROJECT_PART1_INTERPETER_H

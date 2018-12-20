@@ -12,7 +12,6 @@ map<string,string> Data::getbindMap() {
     return this->bindMap;
 }
 
-
 void Data::setSymTbl(string first, double second) {
     this->SymTbl[first] = second;
 }
