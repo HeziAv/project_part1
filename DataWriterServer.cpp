@@ -63,6 +63,7 @@ void* DataWriterServer::client_sock(void* arg) {
        * will be read by server
     */
 
+
     printf("Please enter the message: ");
     bzero(buffer,256);
     fgets(buffer,255,stdin);

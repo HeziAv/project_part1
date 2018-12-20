@@ -13,16 +13,15 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
 
-    map<string,double> SymTbl;
-    map<string,string> bindMap;
 
 
+    Data* data = new Data();
 
-    Data* data = new Data(SymTbl,bindMap);
+//    string q ="var a = 100";
 
-    string q ="openDataServer 5400 10";
+//    string w = "connect 127.0.0.1 5402";
 
-//    string q = "connect 127.0.0.1 5402";
+    string q = "openDataServer 5400 100";
 
 
 Interpeter* inn = new Interpeter(data);
@@ -31,6 +30,14 @@ Interpeter* inn = new Interpeter(data);
     ls = inn->lexer(q);
     inn->parser(ls);
 
+//    int i;
+//    std::cout << "enter 1" << std::endl;
+//    std::cin >> i ;
+//    if (i==1){
+//
+//    ls = inn->lexer(w);
+//    inn->parser(ls);
+//    }
     std::cout << "Hello, World!" << std::endl;
 
 

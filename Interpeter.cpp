@@ -113,27 +113,27 @@ list<string> Interpeter::lexer(string str) {
     }
     listOfStrings = miniLexer(listOfStrings);
     //remove the char : , from the list
-    list<string>::iterator it;
-    for (it = listOfStrings.begin(); it != listOfStrings.end(); ++it) {
-        string temp = *it;
-        string newString = "";
-        if (*it == "bind") {
-            break;
-        }
-        for (long i = 0; i < temp.length(); ++i) {
-            if (temp.length() == 1) {
-                if (!(temp[i] >= 48 && temp[i] <= 57) ||
-                    ((temp[i] >= 65 && temp[i] <= 90) || (temp[i] >= 97 && temp[i] <= 122))) {
-                    cout << "error" << endl;
-                    throw 0;
-                }
-            }
-            if (temp[i] != ',') {
-                newString.push_back(temp[i]);
-            }
-        }
-        *it = newString;
-    }
+//    list<string>::iterator it;
+//    for (it = listOfStrings.begin(); it != listOfStrings.end(); ++it) {
+//        string temp = *it;
+//        string newString = "";
+//        if (*it == "bind") {
+//            break;
+//        }
+//        for (long i = 0; i < temp.length(); ++i) {
+//            if (temp.length() == 1) {
+//                if (!(temp[i] >= 48 && temp[i] <= 57) ||
+//                    ((temp[i] >= 65 && temp[i] <= 90) || (temp[i] >= 97 && temp[i] <= 122))) {
+//                    cout << "error" << endl;
+//                    throw 0;
+//                }
+//            }
+//            if (temp[i] != ',') {
+//                newString.push_back(temp[i]);
+//            }
+//        }
+//    *it = newString;
+//}
     return listOfStrings;
 }
 
@@ -204,6 +204,9 @@ void Interpeter::parser(list<string> ls) {
 
             if (expressionCommand != NULL) {
                 expressionCommand->setParameters1(ls);
+//                expressionCommand->setData(data);
+
+
                 expressionCommand->calculate(data->getSymTbl());
             }
             break;

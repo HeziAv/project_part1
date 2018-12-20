@@ -22,9 +22,10 @@ double connectCommand::doCommand() {
 
     postfix = a.infixToPostfix(this->port);
     Expression *ExFirst = a.stringToExpression(postfix);
+    map<string, double> SymTbl;
+//    SymTbl = data->getSymTbl();
 
-
-    int port2 = (int) ExFirst->calculate(this->data->getSymTbl());
+    int port2 = (int) ExFirst->calculate(SymTbl);
     cout << port2 << endl;
 
     cout << address << endl;

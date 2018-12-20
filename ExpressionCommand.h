@@ -8,9 +8,11 @@
 
 #include "Expression.h"
 #include "Command.h"
+#include "Data.h"
 
 class ExpressionCommand : public Expression {
     Command* command;
+//    Data* data;
 
 public:
     ExpressionCommand(Command* command);
@@ -23,6 +25,10 @@ public:
     virtual int parameterAmount(){
         return this->command->parameterAmount();
     }
+
+//    void setData(Data* data1){
+//        this->data=data1;
+//    }
 
 
 };

@@ -14,7 +14,7 @@ struct MyParams {
 
 
 double EqualCommand::doCommand() {
-    setParameters(this->ls);
+//    setParameters(this->ls);
     // check if there is bind
     if(this->isAbind == true) {
         map<string, string> bindMap;
@@ -26,7 +26,8 @@ double EqualCommand::doCommand() {
         }
     }else {
         map<string, double> symMap;
-        symMap = this->data->getSymTbl();
+
+//        symMap = this->data->getSymTbl();
         ShuntingYard a;
         vector<string> postfix;
         postfix = a.infixToPostfix(this->second);
@@ -60,19 +61,17 @@ void EqualCommand::setParameters(list<string> ls) {
             it++;
             this->first = *it;
             i = 1;
+            continue;
         }
         if(*it == "bind"){
            this->isAbind = true;
            continue;
         }
         if(*it == "="){
-            if(this->isAbind == true){
-                ++it;
-                this->second = *it;
-            } else{
-                this->second = *it;
-            }
+            ++it;
+             this->second = *it;
             i = 2;
+            continue;
         }
     }
     if(i != 2){

@@ -102,7 +102,7 @@ void* DataReaderServ::server_Sock(void* arg) {
         }
 
 
-       printf("Here is the message: %s\n", buffer);
+//       printf("Here is the message: %s\n", buffer);
 
 
 /* Write a response to the client */
