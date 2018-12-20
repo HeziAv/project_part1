@@ -14,12 +14,13 @@ int port;
 string address;
 
 public:
+
     DataWriterServer (int port1, string address1) {
         this->port = port1;
         this->address = address1;
     }
 
-void client_sock();
+    static void* client_sock(void* arg);
 
 
 };

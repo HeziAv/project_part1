@@ -3,6 +3,7 @@
 //
 
 #include "DataWriterServer.h"
+#include "Data.h"
 
 
 #include <stdio.h>
@@ -15,16 +16,21 @@
 using namespace std;
 #include <string.h>
 
-void DataWriterServer::client_sock() {
+struct MyParams {
+    int port;
+    Data data;
+};
+
+void* DataWriterServer::client_sock(void* arg) {
+    struct MyParams *params = (struct MyParams *) arg;
     int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
-
     char buffer[256];
 
 
 
-    portno = this->port;
+    portno = params->port;
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);

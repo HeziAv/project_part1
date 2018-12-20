@@ -37,6 +37,7 @@ struct MyParams {
 
 
 double OpenServerCommand::doCommand() {
+
     ShuntingYard a;
     vector<string> postfix;
     postfix = a.infixToPostfix(this->first);
