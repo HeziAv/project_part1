@@ -13,13 +13,17 @@
 class EqualCommand : public Command{
     list<string> ls;
     Data* data;
+    string first;
+    string second;
+    bool isAbind;
+
 public:
     EqualCommand(Data* data){
             this->data=data;
     }
-    virtual double doCommand(){};
-    virtual void setParameters(list<string> ls){};
-    virtual int parameterAmount(){};
+    virtual double doCommand();
+    virtual void setParameters(list<string> ls);
+    virtual int parameterAmount();
 };
 
 

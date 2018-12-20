@@ -3,6 +3,7 @@
 //
 
 #include "DataReaderServ.h"
+#include "Data.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <netdb.h>
@@ -18,9 +19,15 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
+#include <string>
+#include <regex>
+#include <list>
+
+//gad
+using namespace std;
 struct MyParams {
     int port;
-    //Data data;
+    Data data;
 };
 
 void* DataReaderServ::server_Sock(void* arg) {
@@ -28,7 +35,7 @@ void* DataReaderServ::server_Sock(void* arg) {
     struct MyParams *params = (struct MyParams *) arg;
 
     int sockfd, newsockfd, portno, clilen;
-    char buffer[256];
+    char buffer[1024];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
@@ -81,6 +88,19 @@ void* DataReaderServ::server_Sock(void* arg) {
             perror("ERROR reading from socket");
             exit(1);
         }
+        // convert the buffer to list of doubles
+        list<double> ls;
+        string temp;
+        for(long i = 0;i<1024;i++){
+            while(buffer[i] != ','){
+                temp.push_back(buffer[i]);
+                i++;
+            }
+            double value = atof(temp.c_str());
+            ls.push_back(value);
+            temp = "";
+        }
+
 
        printf("Here is the message: %s\n", buffer);
 
