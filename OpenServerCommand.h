@@ -17,6 +17,8 @@ public:
     virtual double doCommand();
     virtual void setParameters(list<string> ls);
     virtual int parameterAmount();
+    //פונקציה סטטית
+
 };
 
 

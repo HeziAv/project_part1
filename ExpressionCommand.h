@@ -16,7 +16,7 @@ public:
     ExpressionCommand(Command* command);
     virtual double calculate(map<string,double> SymTbl);
 
-    virtual void setParameters(list<string> ls){
+    virtual void setParameters1(list<string> ls){
         this->command->setParameters(ls);
     }
 

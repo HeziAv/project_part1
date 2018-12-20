@@ -26,8 +26,10 @@ double OpenServerCommand::doCommand() {
 
     int Hz = (int)ExSecond->calculate(SymTbl);
     cout<<Hz<<endl;
+
     DataReaderServ* drs = new DataReaderServ(port,Hz);
     drs->server_Sock();
+
     return 2;
 
 }

@@ -145,21 +145,24 @@ list<string> Interpeter::miniLexer(list<string> ls) {
 }
 
 void Interpeter::parser(list<string> ls) {
-    list<string>::iterator it;
+    list<string>::iterator it=ls.begin();
     int i = 0;
-    for (it = ls.begin();it != ls.end();++it) {
-        ExpressionCommand* expressionCommand =  commandMap.find(*it)->second;
+    //for (it = ls.begin();it != ls.end();++it) {
+        //if (i==0){
+            ExpressionCommand* expressionCommand =  commandMap.find(*it)->second;
 
-        if(expressionCommand != NULL){
+            if(expressionCommand != NULL){
 
-           expressionCommand->setParameters(ls);
-           map<string,double> SymTbl;
-           expressionCommand->calculate(SymTbl);
+                expressionCommand->setParameters1(ls);
+                map<string,double> SymTbl;
+                expressionCommand->calculate(SymTbl);
 
-        }
+            }
 
-        i=i+1;
-    }
+        //}
+
+      //  i=i+1;
+   // }
 
 
 

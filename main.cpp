@@ -15,12 +15,16 @@ int main() {
 
     string q = "openDataServer 5400 100";
 
+//    string w = "connect 127.0.0.1 5402";
+
     Interpeter* inn = new Interpeter();
 
     list<string> ls;
     ls = inn->lexer(q);
-
     inn->parser(ls);
+
+   // ls = inn->lexer(w);
+    //inn->parser(ls);
 
 //    list<string>::iterator it;
 //    for (it = ls.begin();it != ls.end();++it) {

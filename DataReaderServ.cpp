@@ -63,7 +63,7 @@ void DataReaderServ::server_Sock() {
     }
 
     std::cout<<"gad"<<std::endl;
-
+while(true){
 /* If connection is established then start communicating */
     bzero(buffer, 256);
     //sleep for this->Hz
@@ -83,5 +83,6 @@ void DataReaderServ::server_Sock() {
         perror("ERROR writing to socket");
         exit(1);
     }
+}
 
 }
