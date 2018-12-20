@@ -14,7 +14,11 @@ class Data {
 
 
 public:
-    Data(map<string,double> SymTbl,map<string,string> bindMap){};
+    Data(map<string,double> SymTbl,map<string,string> bindMap){
+        this->SymTbl=SymTbl;
+        this->bindMap=bindMap;
+    };
+
     map<string,double> getSymTbl();
     map<string,string> getbindMap();
     void setSymTbl(string first, double second);

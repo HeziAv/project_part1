@@ -24,6 +24,7 @@ struct MyParams {
 };
 
 void* DataReaderServ::server_Sock(void* arg) {
+
     struct MyParams *params = (struct MyParams *) arg;
 
     int sockfd, newsockfd, portno, clilen;
