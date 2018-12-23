@@ -13,14 +13,15 @@ map<string,string>* Data::getbindMap() {
 }
 
 void Data::setSymTbl(string first, double second) {
+    // the key exit in the map
+    if(this->SymTbl.count(first)){
+        SymTbl[first] = second;
+    }else{
+        this->SymTbl.insert(std::pair<string, double>(first, second));
+    }
 
-    this->SymTbl.insert(std::pair<string, double>(first, second));
 }
 
-void Data::setSymTbl3(map<string,double> x) {
-
-    this->SymTbl=x;
-}
 
 void Data::setbindMap(string first,string second) {
     this->bindMap->insert(std::pair<string, string>(first, second));

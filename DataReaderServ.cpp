@@ -77,6 +77,11 @@ void* DataReaderServ::server_Sock(void* arg) {
         exit(1);
     }
 
+    string temp;
+    char reminder[256];
+    bzero(reminder, 256);
+
+
     std::cout << "gad" << std::endl;
     while (true) {
 /* If connection is established then start communicating */
@@ -90,41 +95,111 @@ void* DataReaderServ::server_Sock(void* arg) {
         }
         // convert the buffer to list of doubles
         list<double> ls;
-        string temp;
-        for(long i = 0;i<1024;i++){
-            while(buffer[i] != ','){
-                temp.push_back(buffer[i]);
-                i++;
-            }
-            double value = atof(temp.c_str());
-            ls.push_back(value);
-            temp = "";
-        }
-        list<double>::iterator it;
-        int i = 0;
-        string key;
+        temp = "";
 
-        for (it = ls.begin(); it != ls.end(); ++it) {
-            switch (i){
-                case 0: {
-                    key = "rudder";
-                    map<string, double> x;
-                    x = params->data->getSymTbl();
-                    x.insert(std::pair<string, double>(key, *it));
-                    params->data->setSymTbl3(x);
+        for (int k = 0; k < 256 ; ++k) {
+            if(reminder[k] != 0)
+            buffer[k] = reminder[k];
+        }
+        bzero(reminder,256);
+        for(long i = 0;i<256;i++) {
+            if (buffer[i] == '/n') {
+                int k = 0;
+                for (i; i < 256; i++) {
+                    reminder[k] = buffer[i];
+                    k++;
                 }
-                default: {
+                break;
+            } else if (buffer[i] == ',') {
+                double value = atof(temp.c_str());
+                ls.push_back(value);
+                temp = "";
+            } else {
+                temp.push_back(buffer[i]);
+            }
+        }
+        string key = "";
+        int j = 0;
+        list<double >::iterator it;
+        for (it = ls.begin(); it != ls.end(); ++it) {
+            switch (j) {
+                case 0:
+                    key = "engine_rpm";
+                    break;
+                case 1 :
+                    key = "engine_throttle";
+                    break;
+                case 2 :
+                    key = "flight_flaps";
+                    break;
+                case 3 :
+                    key = "flight_rudder";
+                    break;
+                case 4 :
+                    key = "flight_elevator";
+                    break;
+                case 5 :
+                    key = "flight_aileron";
+                    break;
+                case 6 :
+                    key = "vertical-speed-indicator_indicated-speed-fpm";
+                    break;
+                case 7 :
+                    key = "turn-indicator_indicated-turn-rate";
+                    break;
+                case 8 :
+                    key = "slip-skid-ball_indicated-slip-skid";
+                    break;
+                case 9 :
+                    key = "magnetic-compass_indicated-heading-deg";
+                    break;
+                case 10 :
+                    key = "indicated-heading-deg";
+                    break;
+                case 11 :
+                    key = "gps_indicated-vertical-speed";
+                    break;
+                case 12 :
+                    key = "gps_indicated-ground-speed-kt";
+                    break;
+                case 13 :
+                    key = "gps_indicated-altitude-ft";
+                    break;
+                case 14:
+                    key = "encoder_indicated-altitude-ft";
+                case 15 :
+                    key = "encoder_pressure-alt-ft";
+                    break;
+                case 16 :
+                    key = "attitude-indicator_internal-roll-deg";
+                    break;
+                case 17 :
+                    key = "attitude-indicator_internal-pitch-deg";
+                    break;
+                case 18 :
+                    key = "attitude-indicator_indicated-roll-deg";
+                    break;
+                case 19 :
+                    key = "attitude-indicator_indicated-pitch-deg";
+                    break;
+                case 20 :
+                    key = "altimeter_pressure-alt-ft";
+                    break;
+                case 21 :
+                    key = "altimeter_indicated-altitude-ft";
+                    break;
+                case 22 :
+                    key = "airspeed-indicator_indicated-speed-kt";
+                    break;
+                default:
                     cout << "gaddi" << endl;
                     break;
-                }
             }
-            i++;
+            params->data->setSymTbl(key,*it);
+            j++;
         }
 
-
-
-       printf("Here is the message: %s\n", buffer);
-
+        printf("Here is the message: %s\n", buffer);
 
 /* Write a response to the client */
         n = write(newsockfd, "I got your message", 18);
