@@ -19,7 +19,7 @@ using namespace std;
 struct MyParams {
     int port;
     string address;
-    Data data;
+    Data* data;
 };
 
 
