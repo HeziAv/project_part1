@@ -35,7 +35,7 @@ void* DataReaderServ::server_Sock(void* arg) {
     struct MyParams *params = (struct MyParams *) arg;
 
     int sockfd, newsockfd, portno, clilen;
-    char buffer[1024];
+    char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
@@ -96,30 +96,45 @@ void* DataReaderServ::server_Sock(void* arg) {
         // convert the buffer to list of doubles
         list<double> ls;
         temp = "";
-
-        for (int k = 0; k < 256 ; ++k) {
-            if(reminder[k] != 0)
-            buffer[k] = reminder[k];
+        int countR = 0;
+        while (strlen(reminder) != 0){
+            countR++;
         }
+        // create new buf = reminder + buffer
+        char buf[256];
+        for (int l = 0; l < countR ; ++l) {
+            buf[l] = reminder[l];
+        }
+        for (countR; countR < 256 ; ++countR) {
+            buf[countR] = buffer[countR];
+        }
+
+        // convert buf to list of doubles and keep the reminder
         bzero(reminder,256);
         for(long i = 0;i<256;i++) {
-            if (buffer[i] == '/n') {
+            if (buf[i] == 10) {
+                i++;
+                double value = atof(temp.c_str());
+                ls.push_back(value);
+                temp = "";
                 int k = 0;
+                // keep reminder
                 for (i; i < 256; i++) {
-                    reminder[k] = buffer[i];
+                    reminder[k] = buf[i];
                     k++;
                 }
                 break;
-            } else if (buffer[i] == ',') {
+            } else if (buf[i] == ',') {
                 double value = atof(temp.c_str());
                 ls.push_back(value);
                 temp = "";
             } else {
-                temp.push_back(buffer[i]);
+                temp.push_back(buf[i]);
             }
         }
         string key = "";
         int j = 0;
+        // put in the map the keys and their values or change exits keys
         list<double >::iterator it;
         for (it = ls.begin(); it != ls.end(); ++it) {
             switch (j) {
@@ -167,6 +182,7 @@ void* DataReaderServ::server_Sock(void* arg) {
                     break;
                 case 14:
                     key = "encoder_indicated-altitude-ft";
+                    break;
                 case 15 :
                     key = "encoder_pressure-alt-ft";
                     break;
@@ -196,10 +212,11 @@ void* DataReaderServ::server_Sock(void* arg) {
                     break;
             }
             params->data->setSymTbl(key,*it);
-            j++;
+            ++j;
         }
 
-        printf("Here is the message: %s\n", buffer);
+        printf("Here is the message: %s\n", buf);
+        bzero(buf,256);
 
 /* Write a response to the client */
         n = write(newsockfd, "I got your message", 18);
