@@ -31,6 +31,9 @@ public:
     list<string> miniLexer(list<string> ls);
     void parser (list<string> ls);
     bool isOperator(char s);
+    bool isFixTokenS(string s);
+    bool isFixToken(char s);
+
 
     };
 

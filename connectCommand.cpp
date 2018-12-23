@@ -32,7 +32,7 @@ double connectCommand::doCommand(Data* data4) {
     struct MyParams *params = new MyParams();
     params->port = port2;
     params->address = this->address;
-    params->data = this->data;
+    params->data = data4;
 
     pthread_t trid;
     pthread_create(&trid, nullptr, DataWriterServer::client_sock, params);

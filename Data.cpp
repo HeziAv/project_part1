@@ -8,7 +8,7 @@ map<string,double> Data::getSymTbl() {
     return this->SymTbl;
 }
 
-map<string,string>* Data::getbindMap() {
+map<string,string> Data::getbindMap() {
     return this->bindMap;
 }
 
@@ -24,6 +24,11 @@ void Data::setSymTbl(string first, double second) {
 
 
 void Data::setbindMap(string first,string second) {
-    this->bindMap->insert(std::pair<string, string>(first, second));
+    if(this->bindMap.count(first)){
+        bindMap[first] = second;
+    }else{
+        this->bindMap.insert(std::pair<string, string>(first, second));
+    }
+
 
 }

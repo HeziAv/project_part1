@@ -26,9 +26,9 @@ public:
         return this->command->parameterAmount();
     }
 
-//    void setData(Data* data1){
-//        this->data=data1;
-//    }
+    void setData(Data* data1){
+        this->data=data1;
+    }
 
 
 };

@@ -13,182 +13,222 @@
 //gad
 using namespace std;
 
-list<string> Interpeter::lexer(string str) {
-    long index = 0;
+bool Interpeter:: isFixTokenS(string s){
+    if (s == "=" || s == "," || s == "{" || s == "}" || s == "(" || s == ")" || s == """" || s == "<" || s == ">" ||
+        s == "!") {
+        return true;
+    }
+    return false;
+}
+
+
+
+list<string> Interpeter::miniLexer(list<string> ls) {
+    list<string> newList;
+    string object;
+    list<string>::iterator it;
+    for (it = ls.begin(); it != ls.end(); ++it) {
+        if (*it != "+" && *it != "-" && *it != "/" && *it != "*" && *it != "(") {
+            if (*it == "bind") {
+                return ls;
+            }
+            object = *it;
+            newList.push_back(object);
+            continue;
+        }
+        int flag = 0;
+
+        if (!isFixTokenS(object)) {
+            newList.pop_back();
+        }
+        object = "";
+        while (it != ls.end()) {
+            if (*it == "," || *it == "bind") {
+                break;
+            }
+            if (*it == "(") {
+                flag = 1;
+            }
+            if (*it == ")") {
+                flag = flag - 1;
+                object = object + *it;
+                break;
+            }
+            object = object + *it;
+            ++it;
+        }
+        if (flag != 0) {
+            throw 0;
+        }
+        newList.push_back(object);
+        object = "";
+        if (it == ls.end()) {
+            break;
+        }
+    }
+
+    return newList;
+}
+
+
+bool Interpeter::isOperator(char s){
+    if (s == '+' || s == '-' || s == '/' || s == '*'){
+        return true;
+    }
+    return false;
+}
+
+bool Interpeter:: isFixToken(char s){
+    if (s == '=' || s == ',' || s == '{' || s == '}' || s == '(' || s == ')' || s == '"' || s == '<' || s == '>' ||
+        s == '!') {
+        return true;
+    }
+    return false;
+}
+
+
+
+list<string>Interpeter:: lexer(string str) {
+    long count = 0;
     list<string> listOfStrings;
     string object;
     string num;
     int number = 0;
     int var = 0;
-    while (index != str.length()) {
+    for (long index = 0 ; index < str.length();index++) {
         if (str[index] != ' ') {
-            if (object == "bind") {
+            if(object == "bind"){
+                count = index;
                 break;
             }
             // check if the char is letter
-            if ((str[index] >= 65 && str[index] <= 90) || (str[index] >= 97 && str[index] <= 122)) {
-
-                if (object == "") {
+            if(isalpha(str[index])){
+                if(object == ""){
                     var = 1; // start reading a variable
                 }
                 // error in case that is not fix
-                if (var == 0 && number == 1) {
-                    cout << "error" << endl;
+                if(var == 0 && number == 1){
+                    cout<<"error"<<endl;
                     throw 0;
                 }
                 object.push_back(str[index]);
-                index++;
                 continue;
                 // check if the char is number
-            } else if (str[index] >= 48 && str[index] <= 57) {
-                if (object == "") {
+            } else if(isdigit(str[index])){
+                if(object == ""){
                     number = 1;
                 }
                 object.push_back(str[index]);
-                index++;
                 continue;
-            } else {
-                if (number == 0 && var == 1) {
-                    if (str[index] == '_') {
-                        object.push_back(str[index]);
-                        index++;
-                        continue;
-                    } else if (str[index] == ',') {}
-                    else {
-                        cout << "error" << endl;
-                        throw 0;
-                    }
+                // check if the char is operator
+            } else if(isOperator(str[index])) {
+                int checkIfOperatorBefore = index - 1;
+                if(checkIfOperatorBefore == -1)
+                    throw 0;
+                if (isOperator(checkIfOperatorBefore) && str[checkIfOperatorBefore] != '-') {
+                    cout << "error" << endl;
+                    throw 0;
                 }
-                if (number == 1) {
-                    if (str[index] == '.') {
-                        object.push_back(str[index]);
-                        index++;
-                        continue;
-                    } else if (isOperator(str[index])) {}
-                    else {
-                        cout << "error" << endl;
-                        throw 0;
-                    }
-                }
-                if (object != "") {
+                if(object != "")
                     listOfStrings.push_back(object);
-                }
-                if (isOperator(str[index])) {
-                    --index;
-                    if (str[index] != '-') {
-                        cout << "error" << endl;
-                        throw 0;
-                    }
-                    index++;
-                }
+                object = "";
                 object = str[index];
                 listOfStrings.push_back(object);
-                number = 0;
-                var = 0;
-                index++;
                 object = "";
+                var = 0;
+                number = 0;
                 continue;
+            }else{
+                // check if the current object is var
+                if(var == 1) {
+                    if (str[index] == '_') {
+                        object.push_back(str[index]);
+                        continue;
+                    }
+                }
+                // check if the current object is a number
+                if(number == 1) {
+                    if (str[index] == '.') {
+                        object.push_back(str[index]);
+                        continue;
+                    } else if(str[index] == ')') {
+                        listOfStrings.push_back(object);
+                        listOfStrings.push_back(")");
+                        number = 0;
+                        var = 0;
+                        object = "";
+                        continue;
+                    } else{
+                        cout << "error" << endl;
+                        throw 0;
+                    }
+                }if(isFixToken(str[index])){
+                    if(object != "") {
+                        listOfStrings.push_back(object);
+                    }
+                    object = str[index];
+                    listOfStrings.push_back(object);
+                    object = "";
+                    var = 0;
+                    number = 0;
+                    continue;
+                }
+                else{
+                    cout<<"wrong char"<<endl;
+                    throw 0;
+                }
             }
         }
-        if (object == "") {
-            index++;
+        if(object == ""){
             continue;
-        }
-        if (object == "bind") {
+        }if(object == "bind"){
+            count = index;
             break;
         }
         listOfStrings.push_back(object);
         object = "";
         number = 0;
         var = 0;
-        index++;
     }
-    while (str[index] == 32) {
-        index++;
+    if(object != ""){
+        listOfStrings.push_back(object);
     }
-    listOfStrings.push_back(object);
-    object = "";
-    for (long i = index; i < str.length(); ++i) {
-        object.push_back(str[i]);
+    if(object == "bind"){
+        while(str[count] == 32) {
+            count++;
+        }
+        string address;
+        for(int i = count;i<str.length();i++){
+            address.push_back(str[i]);
+        }
+        listOfStrings.push_back(address);
     }
     listOfStrings = miniLexer(listOfStrings);
     //remove the char : , from the list
-//    list<string>::iterator it;
-//    for (it = listOfStrings.begin(); it != listOfStrings.end(); ++it) {
-//        string temp = *it;
-//        string newString = "";
-//        if (*it == "bind") {
-//            break;
-//        }
-//        for (long i = 0; i < temp.length(); ++i) {
-//            if (temp.length() == 1) {
-//                if (!(temp[i] >= 48 && temp[i] <= 57) ||
-//                    ((temp[i] >= 65 && temp[i] <= 90) || (temp[i] >= 97 && temp[i] <= 122))) {
-//                    cout << "error" << endl;
-//                    throw 0;
-//                }
-//            }
-//            if (temp[i] != ',') {
-//                newString.push_back(temp[i]);
-//            }
-//        }
-//    *it = newString;
-//}
+    list<string>::iterator it;
+    for (it = listOfStrings.begin();it != listOfStrings.end();++it) {
+        string temp = *it;
+        string newString = "";
+        if(*it == "bind"){
+            break;
+        }
+        // check if in the string problem chars
+        for (long i = 0; i < temp.length() ; ++i) {
+            if(temp.length() == 1){
+                if(!(isalpha(temp[0]) || isdigit(temp[0]) || isFixToken(temp[0]))){
+                    cout<<"error"<<endl;
+                    throw 0;
+                }
+            }
+            if(temp[i] != ','){
+                newString.push_back(temp[i]);
+            }
+        }
+        *it = newString;
+    }
     return listOfStrings;
 }
 
-
-list<string> Interpeter::miniLexer(list<string> ls) {
-    list<string> newList;
-    list<string>::iterator it;
-    int flag = 0;
-    for (it = ls.begin(); it != ls.end(); ++it) {
-        if (*it != "+" && *it != "-" && *it != "/" && *it != "*") {
-            if (*it == "bind") {
-                return ls;
-            }
-            newList.push_back(*it);
-            continue;
-        }
-        if (flag == 0) {
-            flag = 1;
-            --it;
-            string temp = *it;
-            if (temp == "=") {
-                cout << "error" << endl;
-                throw (0);
-            }
-            newList.pop_back();
-            string newString = "";
-            newString = newString + *it;
-            ++it;
-            newString = newString + *it;
-            ++it;
-            newString = newString + *it;
-            newList.push_back(newString);
-
-        } else {
-            list<string>::iterator iit = newList.end();
-            --iit;
-            string check = *iit;
-            if (check == "=") {
-                cout << "error" << endl;
-                throw (0);
-            }
-            string temp;
-            temp = *iit;
-            newList.pop_back();
-            string newString = "";
-            newString = temp + *it;
-            ++it;
-            newString = newString + *it;
-            newList.push_back(newString);
-        }
-
-    }
-
-    return newList;
-}
 
 
 void Interpeter::parser(list<string> ls) {
@@ -204,7 +244,7 @@ void Interpeter::parser(list<string> ls) {
 
             if (expressionCommand != NULL) {
                 expressionCommand->setParameters1(ls);
-//                expressionCommand->setData(data);
+                expressionCommand->setData(data);
                 expressionCommand->calculate(data);
             }
             break;
@@ -212,10 +252,3 @@ void Interpeter::parser(list<string> ls) {
     }
 }
 
-
-bool Interpeter::isOperator(char s) {
-    if (s == '+' || s == '-' || s == '/' || s == '*' || s == ',') {
-        return true;
-    }
-    return false;
-}

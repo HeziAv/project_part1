@@ -12,7 +12,7 @@ using namespace std;
 
 class Data {
     map<string,double> SymTbl;
-    map<string,string>* bindMap;
+    map<string,string> bindMap;
     int readSocket;
     int writeSocket;
 
@@ -22,16 +22,23 @@ public:
         map<string,double> SymTbl1 = {{"x",0}};
         this->SymTbl = SymTbl1;
         map<string,string> bindMap = {{"x","0"}};
-        this->bindMap = &bindMap;
+        this->bindMap = bindMap;
         this->readSocket=0;
         this->writeSocket=0;
 
     }
 
     map<string,double> getSymTbl();
-    map<string,string>* getbindMap();
+    map<string,string> getbindMap();
     void setSymTbl(string first, double second);
     void setbindMap(string first,string second);
+    int getWriteSocket(){
+            return this->writeSocket;
+    }
+
+    void setSocket(int so){
+            this->writeSocket = so;
+    }
 
 
 };
