@@ -101,7 +101,7 @@ int sockfd = data2->getWriteSocket();
             }
 
 
-            data2->getSymTbl().insert(std::pair<string, double>(this->first, sec));
+            data2->setSymTbl(this->first, sec);
         }
     }
     return 3;
