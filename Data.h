@@ -31,6 +31,7 @@ public:
     map<string,double> getSymTbl();
     map<string,string> getbindMap();
     void setSymTbl(string first, double second);
+    void setSymTbl3(map<string,double> x);
     void setbindMap(string first,string second);
     int getWriteSocket(){
             return this->writeSocket;

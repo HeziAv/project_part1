@@ -14,6 +14,8 @@
 #include "OpenServerCommand.h"
 #include "connectCommand.h"
 #include "EqualCommand.h"
+#include "PrintCommand.h"
+#include "EnterCCommand.h"
 
 using namespace std;
 
@@ -21,7 +23,7 @@ class Interpeter {
     Data* data;
     std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(data
 
-            ))},{"connect",new ExpressionCommand(new connectCommand(data))},{"=",new ExpressionCommand(new EqualCommand(data))}};
+            ))},{"connect",new ExpressionCommand(new connectCommand(data))},{"=",new ExpressionCommand(new EqualCommand(data))},{"print",new ExpressionCommand(new PrintCommand(data))},{"Enterc",new ExpressionCommand(new EnterCCommand())}};
 public:
     Interpeter(Data* data1){
         data=data1;

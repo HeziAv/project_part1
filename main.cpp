@@ -35,6 +35,8 @@ int main() {
 
     string zz = "rudder = 1";
 
+    string hezi = "print rudder";
+
 
 Interpeter* inn = new Interpeter(data);
 
@@ -54,7 +56,10 @@ Interpeter* inn = new Interpeter(data);
     ls = inn->lexer(z);
     inn->parser(ls);
 
-    ls = inn->lexer(zz);
+//    ls = inn->lexer(zz);
+//    inn->parser(ls);
+
+    ls = inn->lexer(hezi);
     inn->parser(ls);
 
 
