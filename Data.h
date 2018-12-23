@@ -37,7 +37,7 @@ public:
     }
 
     void setSocket(int so){
-            this->writeSocket = so;
+            this->writeSocket =  so;
     }
 
 
