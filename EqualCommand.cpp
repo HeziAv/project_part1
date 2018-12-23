@@ -78,7 +78,7 @@ double EqualCommand::doCommand(Data* data2) {
             buffer = buffer+temp;
             temp = second;
             buffer = buffer + " " +temp;
-            buffer = buffer + "\r\n";
+            buffer = buffer + " \r\n";
             char buffer1[256];
             for (int i = 0; i < 256; i++) {
                 if (buffer[i]!='\000'){
@@ -93,7 +93,7 @@ double EqualCommand::doCommand(Data* data2) {
 int n;
 int sockfd = data2->getWriteSocket();
 
-            n = write(sockfd, buffer1, strlen(buffer1));
+            n = static_cast<int>(write(sockfd, buffer1, strlen(buffer1)));
 
             if (n < 0) {
                 perror("ERROR writing to socket");
