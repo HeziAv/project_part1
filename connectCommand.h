@@ -15,7 +15,6 @@ class connectCommand : public Command {
     Data* data;
 
 public:
-
     connectCommand(Data* data){
         this->data=data;
     };

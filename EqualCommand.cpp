@@ -61,7 +61,7 @@ int EqualCommand::parameterAmount() {
 void EqualCommand::setParameters(list<string> ls) {
     list<string>::iterator it;
     int i = 0;
-    if(ls.size() > 5 || ls.size()<3){
+    if(ls.size() > 5 || ls.size() < 3){
         cout<<"error"<<endl;
         throw 0;
     }
