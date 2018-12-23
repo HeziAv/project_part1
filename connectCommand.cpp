@@ -15,17 +15,15 @@ struct MyParams {
     Data *data;
 };
 
-double connectCommand::doCommand() {
+double connectCommand::doCommand(Data* data4) {
 
     ShuntingYard a;
     vector<string> postfix;
 
     postfix = a.infixToPostfix(this->port);
     Expression *ExFirst = a.stringToExpression(postfix);
-    map<string, double> SymTbl;
-//    SymTbl = data->getSymTbl();
 
-    int port2 = (int) ExFirst->calculate(SymTbl);
+    int port2 = (int) ExFirst->calculate(data4);
     cout << port2 << endl;
 
     cout << address << endl;

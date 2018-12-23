@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unistd.h>
 #include "Expression.h"
 #include "BinaryExpression.h"
 #include "Plus.h"
@@ -9,6 +10,15 @@
 #include "Var.h"
 #include "Interpeter.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <netdb.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <netinet/in.h>
+using namespace std;
+#include <string.h>
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -38,8 +48,17 @@ Interpeter* inn = new Interpeter(data);
 //    ls = inn->lexer(w);
 //    inn->parser(ls);
 //    }
-    std::cout << "Hello, World!" << std::endl;
+//    std::cout << "Hello, World!" << std::endl;
 
+
+
+//    std::cout << "enter 1" << std::endl;
+//    std::cin >> i ;
+//    if (i==1){
+//        string buffer = "set controls/flight/rudder -1";
+//        int len = buffer.length();
+//        write(5, buffer, len);
+//    }
 
     while (true){
 

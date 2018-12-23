@@ -5,26 +5,35 @@
 #ifndef PROJECT_PART1_DATA_H
 #define PROJECT_PART1_DATA_H
 
+#include "Data.h"
+using namespace std;
+#include <map>
 
-#include "ExpressionCommand.h"
 
 class Data {
     map<string,double> SymTbl;
-    map<string,string> bindMap;
+    map<string,string>* bindMap;
+    int readSocket;
+    int writeSocket;
 
 
 public:
     Data(){
+        map<string,double> SymTbl1 = {{"x",0}};
+        this->SymTbl = SymTbl1;
+        map<string,string> bindMap = {{"x","0"}};
+        this->bindMap = &bindMap;
+        this->readSocket=0;
+        this->writeSocket=0;
 
-        this->SymTbl = {{"x",0}};
-        this->bindMap = {{"x","0"}};
-
-    };
+    }
 
     map<string,double> getSymTbl();
-    map<string,string> getbindMap();
+    map<string,string>* getbindMap();
     void setSymTbl(string first, double second);
+    void setSymTbl3(map<string,double> x);
     void setbindMap(string first,string second);
+
 
 };
 

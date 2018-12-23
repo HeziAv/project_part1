@@ -12,11 +12,11 @@
 
 class ExpressionCommand : public Expression {
     Command* command;
-//    Data* data;
+    Data* data;
 
 public:
     ExpressionCommand(Command* command);
-    virtual double calculate(map<string,double> SymTbl);
+    virtual double calculate(Data* data);
 
     virtual void setParameters1(list<string> ls){
         this->command->setParameters(ls);

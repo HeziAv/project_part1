@@ -13,7 +13,7 @@ protected:
     double num;
 public:
     Number(double n);
-    virtual double calculate(map<string,double> SymTbl);
+    virtual double calculate(Data* data);
     double getNumber();
 };
 

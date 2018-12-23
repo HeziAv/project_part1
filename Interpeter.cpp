@@ -205,9 +205,7 @@ void Interpeter::parser(list<string> ls) {
             if (expressionCommand != NULL) {
                 expressionCommand->setParameters1(ls);
 //                expressionCommand->setData(data);
-
-
-                expressionCommand->calculate(data->getSymTbl());
+                expressionCommand->calculate(data);
             }
             break;
         }

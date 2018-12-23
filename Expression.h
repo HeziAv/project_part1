@@ -6,6 +6,7 @@
 #ifndef PROJECT_PART1_EXPRESSION_H
 #define PROJECT_PART1_EXPRESSION_H
 #include "Expression.h"
+#include "Data.h"
 #include <string>
 #include <iostream>
 #include <iterator>
@@ -17,7 +18,7 @@ class Expression {
 
 public:
     //virtual double calculate()=0;
-    virtual double calculate(map<string,double> SymTbl)=0;
+    virtual double calculate(Data* data)=0;
 
 };
 

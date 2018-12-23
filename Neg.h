@@ -13,7 +13,7 @@ class Neg : public UnaryExpression {
 
 public:
     Neg(Expression* ex);
-    double calculate(map<string,double> SymTbl);
+    double calculate(Data* data);
 
 };
 

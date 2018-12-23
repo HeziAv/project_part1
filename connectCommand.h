@@ -19,7 +19,7 @@ public:
     connectCommand(Data* data){
         this->data=data;
     };
-    virtual double doCommand();
+    virtual double doCommand(Data* data);
     virtual void setParameters(list<string> ls);
     virtual int parameterAmount();
 };

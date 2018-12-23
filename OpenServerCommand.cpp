@@ -36,7 +36,7 @@ struct MyParams {
 };
 
 
-double OpenServerCommand::doCommand() {
+double OpenServerCommand::doCommand(Data* data) {
 
     ShuntingYard a;
     vector<string> postfix;
@@ -45,16 +45,15 @@ double OpenServerCommand::doCommand() {
     postfix = a.infixToPostfix(this->second);
     Expression *ExSecond = a.stringToExpression(postfix);
 
-    map<string, double> SymTbl;
-    SymTbl = data->getSymTbl();
 
-    int port = (int) ExFirst->calculate(SymTbl);
+
+    int port = (int) ExFirst->calculate(data);
     cout << port << endl;
-    int Hz = (int) ExSecond->calculate(SymTbl);
+    int Hz = (int) ExSecond->calculate(data);
     cout << Hz << endl;
     struct MyParams* params = new MyParams();
     params->port=port;
-    params->data = this->data;
+    params->data = data;
 
     pthread_t trid;
     pthread_create(&trid, nullptr, DataReaderServ::server_Sock, params);

@@ -2,6 +2,7 @@
 // Created by gad on 12/20/18.
 //
 
+#include <cstring>
 #include "EqualCommand.h"
 #include "ShuntingYard.h"
 //check
@@ -13,16 +14,16 @@ struct MyParams {
 };
 
 
-double EqualCommand::doCommand() {
+double EqualCommand::doCommand(Data* data2) {
 //    setParameters(this->ls);
     // check if there is bind
     if(this->isAbind == true) {
-        map<string, string> bindMap;
+        map<string, string>* bindMap;
         bindMap = this->data->getbindMap();
-        if (bindMap.count(this->first) > 0) {
+        if (bindMap->count(this->first) > 0) {
             this->data->setbindMap(this->first,this->second);
         } else {
-            this->data->getbindMap().insert(std::pair<string, string>(this->first, this->second));
+            this->data->getbindMap()->insert(std::pair<string, string>(this->first, this->second));
         }
     }else {
         map<string, double> symMap;
@@ -32,12 +33,20 @@ double EqualCommand::doCommand() {
         vector<string> postfix;
         postfix = a.infixToPostfix(this->second);
         Expression *ExFirst = a.stringToExpression(postfix);
-        map<string, double> SymTbl;
-        double sec = ExFirst->calculate(SymTbl);
+
+        double sec = ExFirst->calculate(data2);
+
         if (symMap.count(this->first) > 0) {
-            this->data->setSymTbl(this->first, sec);
+            data2->setSymTbl(this->first, sec);
         } else {
-            this->data->getSymTbl().insert(std::pair<string, double>(this->first, sec));
+            string buffer = "set";
+            string temp = data->getbindMap()->find(first)->second;
+            buffer = buffer+temp;
+            temp = second;
+            buffer = buffer + temp;
+
+//            write(sockfd, buffer, strlen(buffer));
+            data2->getSymTbl().insert(std::pair<string, double>(this->first, sec));
         }
     }
     return 3;

@@ -27,7 +27,7 @@
 using namespace std;
 struct MyParams {
     int port;
-    Data data;
+    Data* data;
 };
 
 void* DataReaderServ::server_Sock(void* arg) {
@@ -100,9 +100,30 @@ void* DataReaderServ::server_Sock(void* arg) {
             ls.push_back(value);
             temp = "";
         }
+        list<double>::iterator it;
+        int i = 0;
+        string key;
+
+        for (it = ls.begin(); it != ls.end(); ++it) {
+            switch (i){
+                case 0: {
+                    key = "rudder";
+                    map<string, double> x;
+                    x = params->data->getSymTbl();
+                    x.insert(std::pair<string, double>(key, *it));
+                    params->data->setSymTbl3(x);
+                }
+                default: {
+                    cout << "gaddi" << endl;
+                    break;
+                }
+            }
+            i++;
+        }
 
 
-//       printf("Here is the message: %s\n", buffer);
+
+       printf("Here is the message: %s\n", buffer);
 
 
 /* Write a response to the client */

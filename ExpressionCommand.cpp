@@ -9,6 +9,6 @@ ExpressionCommand ::ExpressionCommand(Command* command) {
 }
 
 
-double ExpressionCommand::calculate(map<string,double> SymTbl) {
-    return command->doCommand();
+double ExpressionCommand::calculate(Data* data) {
+    return command->doCommand(data);
 }

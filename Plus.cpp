@@ -5,6 +5,9 @@
 #include "Plus.h"
 
 
-double Plus::calculate(map<string,double> SymTbl) {
-    return ((this->left)->calculate(SymTbl) + (this->right)->calculate(SymTbl));
+double Plus::calculate(Data* data) {
+
+
+
+    return ((this->left)->calculate(data) + (this->right)->calculate(data));
 }

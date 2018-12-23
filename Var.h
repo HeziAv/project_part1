@@ -21,12 +21,15 @@ public:
         this->str = s;
     }
 
-    virtual double calculate(map<string,double> SymTbl){
+    virtual double calculate(Data* data){
         double d;
-        if (SymTbl.find(str) == SymTbl.end() ) {
+
+
+
+        if (data->getSymTbl().find(str) == data->getSymTbl().end() ) {
             throw (0);
         } else {
-            d = SymTbl.find(str)->second;
+            d = data->getSymTbl().find(str)->second;
         }
         return d;
     }

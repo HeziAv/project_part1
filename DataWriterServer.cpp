@@ -35,7 +35,8 @@ void* DataWriterServer::client_sock(void* arg) {
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-//setsocket id to data
+    cout<<sockfd<<endl;
+//set socket id to data
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);
@@ -63,7 +64,7 @@ void* DataWriterServer::client_sock(void* arg) {
        * will be read by server
     */
 
-
+cout<<"Please enter the message: "<<endl;
     printf("Please enter the message: ");
     bzero(buffer,256);
     fgets(buffer,255,stdin);
@@ -85,6 +86,7 @@ void* DataWriterServer::client_sock(void* arg) {
         perror("ERROR reading from socket");
         exit(1);
     }
+    cout<<buffer<<endl;
 
     printf("%s\n",buffer);
 

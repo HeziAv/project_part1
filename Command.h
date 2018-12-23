@@ -6,13 +6,16 @@
 #define PROJECT_PART1_COMMAND_H
 #include <string>
 #include <list>
+#include "Data.h"
+
 using namespace std;
 
 
 class Command {
+    Data* data;
     list<string> ls;
 public:
-    virtual double doCommand(){};
+    virtual double doCommand(Data* data){};
     virtual void setParameters(list<string> ls){};
     virtual int parameterAmount(){};
 
