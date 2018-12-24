@@ -68,7 +68,7 @@ void *DataWriterServer::client_sock(void *arg) {
 //    */
 //
 //
-        cout << "Please enter the message: " << endl;
+//        cout << "Please enter the message: " << endl;
 //
 //
 //        bzero(buffer, 256);

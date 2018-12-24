@@ -15,7 +15,7 @@ public:
     EnterCCommand(){
     };
     virtual double doCommand(Data* data){
-        int i;
+        char i;
         std::cout << "enter a c" << std::endl;
         std::cin >> i ;
     }
@@ -25,8 +25,6 @@ public:
 };
 
 
-
-};
 
 
 #endif //PROJECT_PART1_ENTERCCOMMAND_H

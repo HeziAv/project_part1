@@ -27,51 +27,43 @@ int main() {
 
     Data* data = new Data();
 
-    string z = "var rudder = bind /controls/flight/rudder";
+    string open = "openDataServer 5400 100";
 
-    string w = "connect 127.0.0.1 5402";
+    string enter = "Enterc";
 
-    string q = "openDataServer 5400 100";
+    string connect = "connect 127.0.0.1 5402";
 
-    string zz = "rudder = 1";
+    string bind = "var rudder = bind /controls/flight/rudder";
 
-    string hezi = "print rudder";
+    string var = "rudder = 1";
+
+    string print = "print rudder";
 
 
 Interpeter* inn = new Interpeter(data);
 
     list<string> ls;
-    ls = inn->lexer(q);
+    ls = inn->lexer(open);
     inn->parser(ls);
 
-    int i;
-    std::cout << "enter 1" << std::endl;
-    std::cin >> i ;
-    if (i==1){
 
-    ls = inn->lexer(w);
-    inn->parser(ls);
-    }
-    std::cout << "enter the var" << std::endl;
-    ls = inn->lexer(z);
+    ls = inn->lexer(enter);
     inn->parser(ls);
 
-//    ls = inn->lexer(zz);
+
+    ls = inn->lexer(connect);
+    inn->parser(ls);
+
+
+    ls = inn->lexer(bind);
+    inn->parser(ls);
+
+    ls = inn->lexer(var);
+    inn->parser(ls);
+
+//    ls = inn->lexer(print);
 //    inn->parser(ls);
 
-    ls = inn->lexer(hezi);
-    inn->parser(ls);
-
-
-
-
-//    std::cout << "enter 1" << std::endl;
-//    std::cin >> i ;
-//    if (i==1){
-//        string buffer = "set controls/flight/rudder -1";
-//        int len = buffer.length();
-//
-//    }
 
     while (true){
 
