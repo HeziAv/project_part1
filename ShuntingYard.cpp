@@ -7,6 +7,8 @@
 #include "Plus.h"
 #include "Mul.h"
 #include "Div.h"
+#include "Var.h"
+#include "Neg.h"
 #include <string>
 
 
@@ -92,37 +94,64 @@ vector<string> ShuntingYard::infixToPostfix(string s){
     return output;
 }
 
-Expression* ShuntingYard::stringToExpression(vector<string> postfix){
-    stack<Expression*> stack;
-
-    for (int i = 0; i < postfix.size(); ++i){
-
-        if(!isOperatorS(postfix[i])){
-            stack.push(new Number(stod(postfix[i])));
-        }
-        else {
-            Expression* right = stack.top();
+Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
+    stack<Expression *> stack;
+    int flag = 0;
+    for (int i = 0; i < postfix.size(); ++i) {
+       if(i == 0) {
+           if (postfix[i][0] == '-') {
+               flag = 1;
+               continue;
+           }
+       }
+       int var = 0;
+       if(postfix[i] == ""){
+           continue;
+       }
+       if (!isOperatorS(postfix[i])) {
+           for(int j = 0;j < (postfix[i].size());j++) {
+               if(postfix[i][j] >= 48 && postfix[i][j]<= 57) {
+                   continue;
+                   // it is a number, so do some code
+               } else {
+                   var = 1;
+                   break;
+                   // it is not a number, do something else
+               }
+           }
+           if(var == 0){
+               stack.push(new Number(stod(postfix[i])));
+           }else{
+                stack.push(new Var(postfix[i]));
+            }
+        } else {
+            Expression *right = stack.top();
             stack.pop();
-            Expression* left = stack.top();
+            Expression *left = stack.top();
             stack.pop();
-            switch (postfix[i][0]){
+            switch (postfix[i][0]) {
                 case '+':
-                    stack.push(new Plus(left,right)) ;
+                    stack.push(new Plus(left, right));
                     break;
                 case '-':
-                    stack.push(new Minus(left,right)) ;
+                    stack.push(new Minus(left, right));
                     break;
                 case '/':
-                    stack.push(new Div(left,right)) ;
+                    stack.push(new Div(left, right));
                     break;
                 case '*':
-                    stack.push(new Mul(left,right)) ;
+                    stack.push(new Mul(left, right));
                     break;
             }
 
         }
     }
-    Expression* result = stack.top();
+    Expression *result = stack.top();
+    if (flag == 1){
+    stack.push(new Neg(result));
+    Expression *result1 = stack.top();
+    return result1;
+    }
     return result;
 }
 

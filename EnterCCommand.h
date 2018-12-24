@@ -26,7 +26,4 @@ public:
 
 
 
-};
-
-
 #endif //PROJECT_PART1_ENTERCCOMMAND_H

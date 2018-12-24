@@ -27,34 +27,34 @@ int main() {
 
     Data* data = new Data();
 
-    string z = "var rudder = bind /controls/flight/rudder";
+//    string z = "var rudder = bind /controls/flight/rudder";
+//
+//    string w = "connect 127.0.0.1 5402";
+//
+//    string q = "openDataServer 5400 100";
+//
+//    string zz = "rudder = 1";
 
-    string w = "connect 127.0.0.1 5402";
-
-    string q = "openDataServer 5400 100";
-
-    string zz = "rudder = 1";
-
-    string hezi = "print rudder";
+    string hezi = "rudder = (h0 - heading)/20";
 
 
 Interpeter* inn = new Interpeter(data);
 
     list<string> ls;
-    ls = inn->lexer(q);
-    inn->parser(ls);
-
-    int i;
-    std::cout << "enter 1" << std::endl;
-    std::cin >> i ;
-    if (i==1){
-
-    ls = inn->lexer(w);
-    inn->parser(ls);
-    }
-    std::cout << "enter the var" << std::endl;
-    ls = inn->lexer(z);
-    inn->parser(ls);
+//    ls = inn->lexer(q);
+//    inn->parser(ls);
+//
+//    int i;
+//    std::cout << "enter 1" << std::endl;
+//    std::cin >> i ;
+//    if (i==1){
+//
+//    ls = inn->lexer(w);
+//    inn->parser(ls);
+//    }
+//    std::cout << "enter the var" << std::endl;
+//    ls = inn->lexer(z);
+//    inn->parser(ls);
 
 //    ls = inn->lexer(zz);
 //    inn->parser(ls);
