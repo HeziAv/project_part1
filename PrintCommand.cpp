@@ -34,12 +34,20 @@ double PrintCommand ::doCommand(Data *data) {
     if(this->Quotation_mark == true) {
         cout<<this->first<<endl;
     }else {
-        ShuntingYard a;
-        vector<string> postfix;
-        postfix = a.infixToPostfix(this->first);
-        Expression *ExFirst = a.stringToExpression(postfix);
-        double value = ExFirst->calculate(data);
-        cout << value << endl;
+        std::map<string,double >::iterator it;
+        it = data->getSymTbl().find(this->first);
+        if (it != data->getSymTbl().end()){
+            double value = this->data->getSymTbl().find(this->first)->second;
+            cout << value << endl;
+        } else{
+            ShuntingYard a;
+            vector<string> postfix;
+            postfix = a.infixToPostfix(this->first);
+            Expression *ExFirst = a.stringToExpression(postfix);
+            double value = ExFirst->calculate(data);
+            cout << value << endl;
+        }
+
     }
 }
 

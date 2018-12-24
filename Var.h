@@ -26,10 +26,11 @@ public:
 
 
 
-        if (data->getSymTbl().find(str) == data->getSymTbl().end() ) {
-            throw (0);
-        } else {
+        // the key exit in the map
+        if(data->getSymTbl().count(str)){
             d = data->getSymTbl().find(str)->second;
+        }else{
+           throw 0;
         }
         return d;
     }

@@ -9,12 +9,13 @@
 #include "Expression.h"
 
 class UnaryExpression : public Expression {
+protected:
     Expression* ex;
 
 public:
     UnaryExpression(Expression* ex);
     UnaryExpression(){};
-    virtual double calculate(map<string,double> SymTbl)=0;
+    virtual double calculate(Data* data)=0;
 
 
 };

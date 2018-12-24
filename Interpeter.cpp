@@ -37,11 +37,15 @@ list<string> Interpeter::miniLexer(list<string> ls) {
             continue;
         }
         int flag = 0;
+        if(*it == "("){
+            object = "";
+        }
 
         if (!isFixTokenS(object)) {
             newList.pop_back();
+        }else{
+            object = "";
         }
-        object = "";
         while (it != ls.end()) {
             if (*it == "," || *it == "bind") {
                 break;
@@ -52,10 +56,11 @@ list<string> Interpeter::miniLexer(list<string> ls) {
             if (*it == ")") {
                 flag = flag - 1;
                 object = object + *it;
-                break;
+                ++it;
+            }else{
+                object = object + *it;
+                ++it;
             }
-            object = object + *it;
-            ++it;
         }
         if (flag != 0) {
             throw 0;

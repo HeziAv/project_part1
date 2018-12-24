@@ -9,10 +9,10 @@
 #include "UnaryExpression.h"
 
 class Neg : public UnaryExpression {
-    Expression* ex;
 
 public:
-    Neg(Expression* ex);
+    Neg(Expression* ex):UnaryExpression(ex){};
+    Neg(){}
     double calculate(Data* data);
 
 };
