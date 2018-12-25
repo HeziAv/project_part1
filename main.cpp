@@ -37,7 +37,7 @@ int main() {
 
     string var = "rudder = 1";
 
-    string print = "print rudder";
+//    string print = "print rudder";
 
 
 Interpeter* inn = new Interpeter(data);

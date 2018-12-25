@@ -29,8 +29,12 @@ public:
     static void* thread_func(void* threadid);
     int getSocketId();
     void setSocketId(int var);
+    static void* server_Sock(int port, Data* data) ;
+
 
 };
+
+
 
 
 #endif //PROJECT_PART1_OPENSERVERCOMMAND_H

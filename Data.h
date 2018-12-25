@@ -8,6 +8,7 @@
 #include "Data.h"
 using namespace std;
 #include <map>
+#include <mutex>
 
 
 class Data {
@@ -15,6 +16,9 @@ class Data {
     map<string,string> bindMap;
     int readSocket;
     int writeSocket;
+    int Hz;
+    string buffer;
+//    mutex mtx;
 
 
 public:
@@ -25,6 +29,10 @@ public:
         this->bindMap = bindMap;
         this->readSocket=0;
         this->writeSocket=0;
+        this->buffer="";
+
+
+
 
     }
 
@@ -40,6 +48,34 @@ public:
     void setSocket(int so){
             this->writeSocket = so;
     }
+    void setReadSocket(int so){
+        this->readSocket = so;
+    }
+    int getReadSocket(){
+        return this->readSocket;
+    }
+
+    void setHz(int so){
+        this->Hz = so;
+    }
+    int getHz(){
+        return this->Hz;
+    }
+
+    void setGlobal(string so){
+        this->buffer = so;
+    }
+    string getGlobal(){
+        return this->buffer;;
+    }
+
+//    mutex getMutex(){
+//        return this->mtx;;
+//    }
+
+
+
+
 
 
 };

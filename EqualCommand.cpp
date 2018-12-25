@@ -67,28 +67,30 @@ double EqualCommand::doCommand(Data *data2) {
                 }
             }
 
-            /* Send message to the server */
-            int n;
-            int sockfd = data2->getWriteSocket();
+            data2->setGlobal(buffer);
 
-            char buffer123[256];
+//            /* Send message to the server */
+//            int n;
+//            int sockfd = data2->getWriteSocket();
+//
+//            char buffer123[256];
+//
+//            bzero(buffer123, 256);
+//
+//            fgets(buffer123, 255, stdin);
 
-            bzero(buffer123, 256);
+//            string s = "set controls/flight/rudder 1\r\n";
 
-            fgets(buffer123, 255, stdin);
-
-            string s = "set controls/flight/rudder 1\r\n";
-
-            for (int i = 0; i < s.length(); i++) {
-                buffer123[i] = s[i];
-            }
+//            for (int i = 0; i < s.length(); i++) {
+//                buffer123[i] = s[i];
+//            }
 //
 //
 //
 //
 //        /* Send message to the server */
 //
-            n = write(sockfd, buffer123, strlen(buffer123));
+//            n = write(sockfd, buffer123, strlen(buffer123));
 
 
 

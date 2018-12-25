@@ -21,6 +21,7 @@ public:
     virtual double doCommand(Data* data);
     virtual void setParameters(list<string> ls);
     virtual int parameterAmount();
+    static void* client_sock(int socktfd, Data* data);
 };
 
 
