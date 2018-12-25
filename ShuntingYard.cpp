@@ -67,6 +67,17 @@ vector<string> ShuntingYard::infixToPostfix(string s){
         }
             //If an operator is scanned
         else{
+            if(i == 0 && s[i] == '-'){
+               param = "-";
+               ++i;
+               for(i ;i<s.size();i++){
+                   if(!isOperator(s[i]))
+                   param = param + s[i];
+               }
+               output.push_back(param);
+               param = "";
+                continue;
+            }
             output.push_back(param);
             param = "";
             string temp = "";
@@ -97,31 +108,37 @@ vector<string> ShuntingYard::infixToPostfix(string s){
 Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
     stack<Expression *> stack;
     int flag = 0;
+    // clear empty strings in the vector
+    if(postfix[0] == ""){
+        postfix.erase (postfix.begin());
+    }
+    for(int i = 0; i < postfix.size(); ++i){
+        if(postfix[i] == "")
+        postfix.erase (postfix.begin()+i);
+    }
     for (int i = 0; i < postfix.size(); ++i) {
-       if(i == 0) {
-           if (postfix[i][0] == '-') {
-               flag = 1;
-               continue;
-           }
-       }
        int var = 0;
-       if(postfix[i] == ""){
-           continue;
-       }
+       int flagMinus = 0;
        if (!isOperatorS(postfix[i])) {
            for(int j = 0;j < (postfix[i].size());j++) {
-               if(postfix[i][j] >= 48 && postfix[i][j]<= 57) {
+               if(isdigit(postfix[i][j])) {
                    continue;
                    // it is a number, so do some code
-               } else {
+               } else if(isalpha(postfix[i][j])) {
                    var = 1;
                    break;
                    // it is not a number, do something else
+               }else if(postfix[i][0] == '-'){
+                   flagMinus = 1;
+                   continue;
                }
            }
            if(var == 0){
                stack.push(new Number(stod(postfix[i])));
            }else{
+               if(flagMinus == 1){
+                   stack.push(new Neg(new Var(postfix[i])));
+               }
                 stack.push(new Var(postfix[i]));
             }
         } else {
@@ -147,11 +164,6 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
         }
     }
     Expression *result = stack.top();
-    if (flag == 1){
-    stack.push(new Neg(result));
-    Expression *result1 = stack.top();
-    return result1;
-    }
     return result;
 }
 

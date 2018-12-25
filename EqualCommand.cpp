@@ -120,7 +120,7 @@ int EqualCommand::parameterAmount() {
     return 2;
 }
 
-void EqualCommand::setParameters(list<string> ls) {
+void EqualCommand::setParameters(list<string> ls,Data* data1) {
     list<string>::iterator it;
     this->first = "";
     this->second = "";

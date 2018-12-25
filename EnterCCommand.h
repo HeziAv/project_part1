@@ -20,7 +20,7 @@ public:
         std::cin >> i ;
     }
 
-    virtual void setParameters(list<string> ls){};
+    virtual void setParameters(list<string> ls,Data* data){};
     virtual int parameterAmount(){};
 };
 

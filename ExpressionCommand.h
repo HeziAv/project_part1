@@ -18,8 +18,8 @@ public:
     ExpressionCommand(Command* command);
     virtual double calculate(Data* data);
 
-    virtual void setParameters1(list<string> ls){
-        this->command->setParameters(ls);
+    virtual void setParameters1(list<string> ls,Data* data1){
+        this->command->setParameters(ls,data);
     }
 
     virtual int parameterAmount(){

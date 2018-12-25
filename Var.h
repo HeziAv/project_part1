@@ -24,7 +24,9 @@ public:
     virtual double calculate(Data* data){
         double d;
 
-
+        if(this->str[0] == '-'){
+            this->str.erase(str.begin());
+        }
 
         // the key exit in the map
         if(data->getSymTbl().count(str)){

@@ -6,7 +6,7 @@
 #include "PrintCommand.h"
 #include "ShuntingYard.h"
 
-void PrintCommand ::setParameters(list<string> ls) {
+void PrintCommand ::setParameters(list<string> ls,Data* data1) {
     this->first = "";
     list<string>::iterator it;
     if(ls.size() != 2){
@@ -31,15 +31,18 @@ void PrintCommand ::setParameters(list<string> ls) {
 }
 
 double PrintCommand ::doCommand(Data *data) {
+    // check if need to print the value or the variable with ""
     if(this->Quotation_mark == true) {
         cout<<this->first<<endl;
     }else {
         std::map<string,double >::iterator it;
         it = data->getSymTbl().find(this->first);
+        //if first is var
         if (it != data->getSymTbl().end()){
-            double value = this->data->getSymTbl().find(this->first)->second;
+            double value = data->getSymTbl().find(this->first)->second;
             cout << value << endl;
         } else{
+            // in case the first is expression
             ShuntingYard a;
             vector<string> postfix;
             postfix = a.infixToPostfix(this->first);

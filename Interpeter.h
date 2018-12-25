@@ -9,6 +9,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include <vector>
 #include "Command.h"
 #include "ExpressionCommand.h"
 #include "OpenServerCommand.h"
@@ -16,14 +17,13 @@
 #include "EqualCommand.h"
 #include "PrintCommand.h"
 #include "EnterCCommand.h"
+#include "ConditionCommand.h"
 
 using namespace std;
 
 class Interpeter {
     Data* data;
-    std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(data
-
-            ))},{"connect",new ExpressionCommand(new connectCommand(data))},{"=",new ExpressionCommand(new EqualCommand(data))},{"print",new ExpressionCommand(new PrintCommand(data))},{"Enterc",new ExpressionCommand(new EnterCCommand())}};
+    std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(data))},{"connect",new ExpressionCommand(new connectCommand(data))},{"=",new ExpressionCommand(new EqualCommand(data))},{"print",new ExpressionCommand(new PrintCommand(data))},{"Enterc",new ExpressionCommand(new EnterCCommand())},{"if",new ExpressionCommand(new ConditionCommand(data))}};
 public:
     Interpeter(Data* data1){
         data=data1;

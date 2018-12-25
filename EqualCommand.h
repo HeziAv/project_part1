@@ -22,7 +22,7 @@ public:
             this->data=data;
     }
     virtual double doCommand(Data* data);
-    virtual void setParameters(list<string> ls);
+    virtual void setParameters(list<string> ls,Data* data1);
     virtual int parameterAmount();
 };
 

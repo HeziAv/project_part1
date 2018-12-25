@@ -119,7 +119,7 @@ int OpenServerCommand::parameterAmount() {
     return 2;
 }
 
-void OpenServerCommand::setParameters(list<string> ls) {
+void OpenServerCommand::setParameters(list<string> ls,Data* data1) {
     list<string>::iterator it;
     int i = 0;
     for (it = ls.begin(); it != ls.end(); ++it) {

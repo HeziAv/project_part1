@@ -15,12 +15,11 @@ using namespace std;
 
 bool Interpeter:: isFixTokenS(string s){
     if (s == "=" || s == "," || s == "{" || s == "}" || s == "(" || s == ")" || s == """" || s == "<" || s == ">" ||
-        s == "!") {
+        s == "!" || s == "print" || s == "if" || s == "while" || s == "exit") {
         return true;
     }
     return false;
 }
-
 
 
 list<string> Interpeter::miniLexer(list<string> ls) {
@@ -28,9 +27,12 @@ list<string> Interpeter::miniLexer(list<string> ls) {
     string object;
     list<string>::iterator it;
     for (it = ls.begin(); it != ls.end(); ++it) {
-        if (*it != "+" && *it != "-" && *it != "/" && *it != "*" && *it != "(") {
-            if (*it == "bind") {
+        if (*it != "+" && *it != "-" && *it != "/" && *it != "" && *it != "(") {
+            if (*it == "while" || *it == "if") {
                 return ls;
+            }
+            if(*it == ","){
+                object = *it;
             }
             object = *it;
             newList.push_back(object);
@@ -40,7 +42,12 @@ list<string> Interpeter::miniLexer(list<string> ls) {
         if(*it == "("){
             object = "";
         }
-
+//        if(*it == "-"){
+//            --it;
+//            if(it != ls.begin()){
+//               if(*it != "if" || )
+//            }
+//        }
         if (!isFixTokenS(object)) {
             newList.pop_back();
         }else{
@@ -48,6 +55,10 @@ list<string> Interpeter::miniLexer(list<string> ls) {
         }
         while (it != ls.end()) {
             if (*it == "," || *it == "bind") {
+                break;
+            }
+            if(*it == "=" || *it == "{" || *it == "}" || *it == "<" || *it == ">" || *it == "!"){
+                --it;
                 break;
             }
             if (*it == "(") {
@@ -71,7 +82,6 @@ list<string> Interpeter::miniLexer(list<string> ls) {
             break;
         }
     }
-
     return newList;
 }
 
@@ -102,7 +112,7 @@ list<string>Interpeter:: lexer(string str) {
     int var = 0;
     for (long index = 0 ; index < str.length();index++) {
         if (str[index] != ' ') {
-            if(object == "bind"){
+            if(object == "bind" || object == "while" || object == "if"){
                 count = index;
                 break;
             }
@@ -156,9 +166,10 @@ list<string>Interpeter:: lexer(string str) {
                     if (str[index] == '.') {
                         object.push_back(str[index]);
                         continue;
-                    } else if(str[index] == ')') {
+                    } else if(isFixToken(str[index])) {
                         listOfStrings.push_back(object);
-                        listOfStrings.push_back(")");
+                        string s(1, str[index]);
+                        listOfStrings.push_back(s);
                         number = 0;
                         var = 0;
                         object = "";
@@ -186,7 +197,7 @@ list<string>Interpeter:: lexer(string str) {
         }
         if(object == ""){
             continue;
-        }if(object == "bind"){
+        }if(object == "bind" || object == "while" || object == "if"){
             count = index;
             break;
         }
@@ -198,6 +209,7 @@ list<string>Interpeter:: lexer(string str) {
     if(object != ""){
         listOfStrings.push_back(object);
     }
+    // build bind line
     if(object == "bind"){
         while(str[count] == 32) {
             count++;
@@ -207,6 +219,22 @@ list<string>Interpeter:: lexer(string str) {
             address.push_back(str[i]);
         }
         listOfStrings.push_back(address);
+        return listOfStrings;
+    }
+    // build condition line
+    if(object == "if" || object == "while"){
+        // clear white space
+        while(str[count] == 32) {
+            count++;
+        }
+        string address;
+        for(int i = count;i<str.length();i++){
+            if(str[i] != '(' && str[i] != ')' && str[i] != '{' && str[i] != 32) {
+                address = str[i];
+                listOfStrings.push_back(address);
+            }
+        }
+        return listOfStrings;
     }
     listOfStrings = miniLexer(listOfStrings);
     //remove the char : , from the list
@@ -214,9 +242,7 @@ list<string>Interpeter:: lexer(string str) {
     for (it = listOfStrings.begin();it != listOfStrings.end();++it) {
         string temp = *it;
         string newString = "";
-        if(*it == "bind"){
-            break;
-        }
+
         // check if in the string problem chars
         for (long i = 0; i < temp.length() ; ++i) {
             if(temp.length() == 1){
@@ -248,8 +274,8 @@ void Interpeter::parser(list<string> ls) {
             ExpressionCommand *expressionCommand = commandMap.find(*it)->second;
 
             if (expressionCommand != NULL) {
-                expressionCommand->setParameters1(ls);
                 expressionCommand->setData(data);
+                expressionCommand->setParameters1(ls,data);
                 expressionCommand->calculate(data);
             }
             break;

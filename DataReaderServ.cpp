@@ -82,7 +82,7 @@ void* DataReaderServ::server_Sock(void* arg) {
     bzero(reminder, 256);
 
 
-    std::cout << "gad" << std::endl;
+    std::cout << "hezi" << std::endl;
     while (true) {
 /* If connection is established then start communicating */
         bzero(buffer, 256);
@@ -208,7 +208,7 @@ void* DataReaderServ::server_Sock(void* arg) {
                     key = "airspeed-indicator_indicated-speed-kt";
                     break;
                 default:
-                    cout << "gaddi" << endl;
+                    cout << "error" << endl;
                     break;
             }
             params->data->setSymTbl(key,*it);
