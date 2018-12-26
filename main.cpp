@@ -33,9 +33,10 @@ int main() {
         ls = inn->lexer(ifs);
         inn->parser(ls);
     }
-while (true){
-    data->getSymTbl().find
-}
+//while (true){
+//    double f = data->getSymTbl().find("rpm")->second;
+//    cout<<f;
+//}
 
 
 

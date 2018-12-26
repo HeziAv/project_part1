@@ -331,7 +331,6 @@ list<string>Interpeter:: lexer(string str) {
 void Interpeter::parser(list<string> ls) {
     if(!ls.empty()){
 
-
     list<string>::iterator it = ls.begin();
     bool commandWasRun = false;
     for (it = ls.begin(); it != ls.end(); ++it) {

@@ -138,6 +138,7 @@ void OpenServerCommand::setParameters(list<string> ls,Data* data1) {
 
 }
 
+
 int OpenServerCommand::getSocketId() {
     return this->SocketId;
 }
