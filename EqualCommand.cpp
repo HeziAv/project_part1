@@ -29,90 +29,118 @@ struct MyParams {
 
 
 double EqualCommand::doCommand(Data *data2) {
-    struct sockaddr_in serv_addr;
-
-//    setParameters(this->ls);
-    // check if there is bind
+    // if there is bind
     if (this->isAbind == true) {
-        map<string, string> bindMap;
-        bindMap = data2->getbindMap();
         data2->setbindMap(this->first, this->second); // found
-
-    } else {
-        map<string, double> symMap;
-
-//        symMap = this->data->getSymTbl();
+    // if there only var but not bind
+    } else if (this->isVar) {
         ShuntingYard a;
         vector<string> postfix;
         postfix = a.infixToPostfix(this->second);
         Expression *ExFirst = a.stringToExpression(postfix);
-
         double sec = ExFirst->calculate(data2);
-
-        ///////// gaddddddddd
-        if (symMap.count(this->first) > 0) {
-            data2->setSymTbl(this->first, sec);
-        } else {
+        data2->setSymTbl(this->first, sec);
+    }
+    // if there no var and no bind
+    else {
+        ShuntingYard a;
+        vector<string> postfix;
+        postfix = a.infixToPostfix(this->second);
+        Expression *ExFirst = a.stringToExpression(postfix);
+        double sec = ExFirst->calculate(data2);
+    //if need to transmit to simulator
+        if (data2->getbindMap().count(this->first) > 0) {
             string buffer = "set ";
             string temp = data2->getbindMap().find(first)->second;
             buffer = buffer + temp;
-            temp = second;
+            temp = to_string(sec);
             buffer = buffer + " " + temp;
-            buffer = buffer + " \r\n";
-            char buffer1[256];
-            for (int i = 0; i < 256; i++) {
-                if (buffer[i] != '\000') {
-                    buffer1[i] = buffer[i];
-                } else {
-                    buffer1[i] = '\000';
-                }
-            }
-
             data2->setGlobal(buffer);
-
-//            /* Send message to the server */
-//            int n;
-//            int sockfd = data2->getWriteSocket();
-//
-//            char buffer123[256];
-//
-//            bzero(buffer123, 256);
-//
-//            fgets(buffer123, 255, stdin);
-
-//            string s = "set controls/flight/rudder 1\r\n";
-
-//            for (int i = 0; i < s.length(); i++) {
-//                buffer123[i] = s[i];
-//            }
-//
-//
-//
-//
-//        /* Send message to the server */
-//
-//            n = write(sockfd, buffer123, strlen(buffer123));
-
-
-
-
-
-
-//if(::send(sockfd,buffer.c_str(), buffer.length(),0)<0){
-//    perror("Error writing gad");
-//}
-
-//            n = (write(sockfd, buffer1, strlen(buffer1)));
-
-//            if (n < 0) {
-//                perror("ERROR writing to socket");
-//                exit(1);
-//            }
-
-
-            data2->setSymTbl(this->first, sec);
         }
+    //if no need to transmit so anyway
+    //update the SyTbl
+        data2->setSymTbl(this->first, sec);
     }
+//
+//    else
+//        {
+//        if(){
+//
+//        }
+//        map<string, double> symMap;
+//
+////        symMap = this->data->getSymTbl();
+//        ShuntingYard a;
+//        vector<string> postfix;
+//        postfix = a.infixToPostfix(this->second);
+//        Expression *ExFirst = a.stringToExpression(postfix);
+//
+//        double sec = ExFirst->calculate(data2);
+//
+//        ///////// gaddddddddd
+//        if (symMap.count(this->first) > 0) {
+//            data2->setSymTbl(this->first, sec);
+//        } else {
+//            string buffer = "set ";
+//            string temp = data2->getbindMap().find(first)->second;
+//            buffer = buffer + temp;
+//            temp = second;
+//            buffer = buffer + " " + temp;
+//            buffer = buffer + " \r\n";
+//            char buffer1[256];
+//            for (int i = 0; i < 256; i++) {
+//                if (buffer[i] != '\000') {
+//                    buffer1[i] = buffer[i];
+//                } else {
+//                    buffer1[i] = '\000';
+//                }
+//            }
+//
+//            data2->setGlobal(buffer);
+//
+////            /* Send message to the server */
+////            int n;
+////            int sockfd = data2->getWriteSocket();
+////
+////            char buffer123[256];
+////
+////            bzero(buffer123, 256);
+////
+////            fgets(buffer123, 255, stdin);
+//
+////            string s = "set controls/flight/rudder 1\r\n";
+//
+////            for (int i = 0; i < s.length(); i++) {
+////                buffer123[i] = s[i];
+////            }
+////
+////
+////
+////
+////        /* Send message to the server */
+////
+////            n = write(sockfd, buffer123, strlen(buffer123));
+//
+//
+//
+//
+//
+//
+////if(::send(sockfd,buffer.c_str(), buffer.length(),0)<0){
+////    perror("Error writing gad");
+////}
+//
+////            n = (write(sockfd, buffer1, strlen(buffer1)));
+//
+////            if (n < 0) {
+////                perror("ERROR writing to socket");
+////                exit(1);
+////            }
+//
+//
+//            data2->setSymTbl(this->first, sec);
+//        }
+//    }
     return 3;
 }
 
@@ -121,7 +149,7 @@ int EqualCommand::parameterAmount() {
     return 2;
 }
 
-void EqualCommand::setParameters(list<string> ls,Data* data) {
+void EqualCommand::setParameters(list<string> ls, Data *data) {
     list<string>::iterator it;
     this->first = "";
     this->second = "";
@@ -134,7 +162,7 @@ void EqualCommand::setParameters(list<string> ls,Data* data) {
     // take the variable before =
     for (it = ls.begin(); it != ls.end(); ++it) {
         if (*it == "var") {
-            this->newVar = true;
+            this->isVar = true;
             flag = 1;
             continue;
         }
@@ -142,8 +170,8 @@ void EqualCommand::setParameters(list<string> ls,Data* data) {
         i = 1;
         break;
     }
-    if(flag == 0)
-        this->newVar = false;
+    if (flag == 0)
+        this->isVar = false;
     // take the variable after =
     for (it; it != ls.end(); ++it) {
         if (*it == "=") {
