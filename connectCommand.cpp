@@ -119,7 +119,7 @@ void *connectCommand::client_sock(int sockfd, Data *data) {
         buffer[i] = '\000';
     }
 
-//    while (true) {
+    while (true) {
 
     if (data->getGlobal() != "") {
 
@@ -167,5 +167,5 @@ void *connectCommand::client_sock(int sockfd, Data *data) {
 
         data->setGlobal("");
     }
-//    }
+    }
 }
