@@ -162,7 +162,7 @@ void *connectCommand::client_sock(int sockfd, Data *data) {
 
         cout << buffer << endl;
 
-        printf("%s\n", buffer);
+//        printf("%s\n", buffer);
 
         data->setGlobal("");
     }
