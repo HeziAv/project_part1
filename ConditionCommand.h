@@ -9,6 +9,7 @@
 #include "Data.h"
 #include "ExpressionCommand.h"
 
+
 class ConditionCommand :public Command{
     Data *data;
     bool condition;

@@ -9,6 +9,7 @@
 #include <cmath>
 #include "Expression.h"
 
+
 class BinaryExpression : public Expression {
 protected:
     Expression* left;

@@ -67,17 +67,23 @@ vector<string> ShuntingYard::infixToPostfix(string s){
         }
             //If an operator is scanned
         else{
-            if(i == 0 && s[i] == '-'){
-               param = "-";
-               ++i;
-               for(i ;i<s.size();i++){
-                   if(!isOperator(s[i]))
-                   param = param + s[i];
-               }
-               output.push_back(param);
-               param = "";
-                continue;
-            }
+//            if(i == 0 && s[i] == '-'){
+//               param = "-";
+//               ++i;
+//               for(i ;i<s.size();i++){
+//                   if(!isOperator(s[i])){
+//                       param = param + s[i];
+//                   } else{
+//                       --i;
+//                       break;
+//                   }
+//               }
+//               output.push_back(param);
+//               stack.push(param);
+//               param = "";
+//                continue;
+//            }
+            if(param != "")
             output.push_back(param);
             param = "";
             string temp = "";
@@ -142,10 +148,10 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
                 stack.push(new Var(postfix[i]));
             }
         } else {
-            Expression *right = stack.top();
-            stack.pop();
-            Expression *left = stack.top();
-            stack.pop();
+           Expression *right = stack.top();
+           stack.pop();
+           Expression *left = stack.top();
+           stack.pop();
             switch (postfix[i][0]) {
                 case '+':
                     stack.push(new Plus(left, right));

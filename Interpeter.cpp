@@ -178,13 +178,16 @@ list<string>Interpeter:: lexer(string str) {
                     throw 0;
                 // add zero before minus
                if(str[index] == '-') {
+                   int z = 1;
+                   while((str[checkIfOperatorBefore]) == 32 && checkIfOperatorBefore != -1){
+                       ++z;
+                       checkIfOperatorBefore = index - z;
+                   }
                    if (isOperator(str[checkIfOperatorBefore]) || isFixToken(str[checkIfOperatorBefore])) {
                        if (object != "")
                            listOfStrings.push_back(object);
-                       listOfStrings.push_back("(");
                        listOfStrings.push_back("0");
                        listOfStrings.push_back("-");
-                       listOfStrings.push_back(")");
                        object = "";
                        var = 0;
                        number = 0;

@@ -65,6 +65,7 @@ double connectCommand::doCommand(Data *data4) {
         exit(1);
     }
 
+
     server = gethostbyname(params->address.c_str());
 
     if (server == NULL) {
