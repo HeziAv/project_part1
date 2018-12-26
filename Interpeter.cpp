@@ -42,12 +42,7 @@ list<string> Interpeter::miniLexer(list<string> ls) {
         if(*it == "("){
             object = "";
         }
-//        if(*it == "-"){
-//            --it;
-//            if(it != ls.begin()){
-//               if(*it != "if" || )
-//            }
-//        }
+
         if (!isFixTokenS(object)) {
             newList.pop_back();
         }else{
@@ -61,20 +56,13 @@ list<string> Interpeter::miniLexer(list<string> ls) {
                 --it;
                 break;
             }
-            if (*it == "(") {
-                flag = 1;
-            }
             if (*it == ")") {
-                flag = flag - 1;
                 object = object + *it;
                 ++it;
             }else{
                 object = object + *it;
                 ++it;
             }
-        }
-        if (flag != 0) {
-            throw 0;
         }
         newList.push_back(object);
         object = "";
@@ -85,6 +73,14 @@ list<string> Interpeter::miniLexer(list<string> ls) {
     return newList;
 }
 
+Interpeter* Interpeter::instance = NULL;
+
+Interpeter* Interpeter::getInstance(Data* data)
+{
+    if (instance == NULL)
+        instance = new Interpeter(data);
+    return instance;
+}
 
 bool Interpeter::isOperator(char s){
     if (s == '+' || s == '-' || s == '/' || s == '*'){
@@ -103,6 +99,25 @@ bool Interpeter:: isFixToken(char s){
 
 
 
+list<string> Interpeter:: lexer(istream& stream)
+{
+    std::string line;
+    list<string> ls;
+    std::getline(stream, line);
+    if (line[line.size() - 1] != '{')
+    {
+        ls = lexer(line);
+        return ls;
+    }
+    ls.push_back(line);
+    do
+    {
+        std::getline(stream, line);
+        ls.push_back(line);
+    }
+    while (line[line.size() - 1] != '}'); // while we didn't read the "}"
+    return ls;
+}
 list<string>Interpeter:: lexer(string str) {
     long count = 0;
     list<string> listOfStrings;
@@ -140,10 +155,21 @@ list<string>Interpeter:: lexer(string str) {
                 int checkIfOperatorBefore = index - 1;
                 if(checkIfOperatorBefore == -1)
                     throw 0;
-                if (isOperator(checkIfOperatorBefore) && str[checkIfOperatorBefore] != '-') {
-                    cout << "error" << endl;
-                    throw 0;
-                }
+                // add zero before minus
+               if(str[index] == '-') {
+                   if (isOperator(str[checkIfOperatorBefore]) || isFixToken(str[checkIfOperatorBefore])) {
+                       if (object != "")
+                           listOfStrings.push_back(object);
+                       listOfStrings.push_back("(");
+                       listOfStrings.push_back("0");
+                       listOfStrings.push_back("-");
+                       listOfStrings.push_back(")");
+                       object = "";
+                       var = 0;
+                       number = 0;
+                       continue;
+                   }
+               }
                 if(object != "")
                     listOfStrings.push_back(object);
                 object = "";
@@ -229,10 +255,28 @@ list<string>Interpeter:: lexer(string str) {
         }
         string address;
         for(int i = count;i<str.length();i++){
-            if(str[i] != '(' && str[i] != ')' && str[i] != '{' && str[i] != 32) {
+            if(str[i] == 32)
+                continue;
+            if(str[i] != '(' && str[i] != ')' && str[i] != '{') {
+                while (!isFixToken(str[i])){
+                    if(str[i] == 32){
+                        i++;
+                        continue;
+                    }
+                    address.push_back(str[i]);
+                    i++;
+                }
+                if(address != "")
+                listOfStrings.push_back(address);
                 address = str[i];
                 listOfStrings.push_back(address);
+                address = "";
+            }else{
+                address = str[i];
+                listOfStrings.push_back(address);
+                address = "";
             }
+
         }
         return listOfStrings;
     }
@@ -264,7 +308,7 @@ list<string>Interpeter:: lexer(string str) {
 
 void Interpeter::parser(list<string> ls) {
     list<string>::iterator it = ls.begin();
-    int i = 0;
+    bool commandWasRun = false;
     for (it = ls.begin(); it != ls.end(); ++it) {
         if (commandMap.find(*it) == commandMap.end()) {
             // not found
@@ -278,7 +322,20 @@ void Interpeter::parser(list<string> ls) {
                 expressionCommand->setParameters1(ls,data);
                 expressionCommand->calculate(data);
             }
+            commandWasRun = true;
             break;
+        }
+    }
+    if (! commandWasRun)
+    {
+        it = ls.begin();
+        list<string> firstList = lexer(*it);
+        ExpressionCommand *expressionCommand = commandMap.find(*firstList.begin())->second;
+
+        if (expressionCommand != NULL) {
+            expressionCommand->setData(data);
+            expressionCommand->setParameters1(ls,data);
+            expressionCommand->calculate(data);
         }
     }
 }

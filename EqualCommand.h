@@ -16,6 +16,7 @@ class EqualCommand : public Command{
     string first;
     string second;
     bool isAbind;
+    bool newVar;
 
 public:
     EqualCommand(Data* data){

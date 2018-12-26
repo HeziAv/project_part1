@@ -49,6 +49,7 @@ double EqualCommand::doCommand(Data *data2) {
 
         double sec = ExFirst->calculate(data2);
 
+        ///////// gaddddddddd
         if (symMap.count(this->first) > 0) {
             data2->setSymTbl(this->first, sec);
         } else {
@@ -120,7 +121,7 @@ int EqualCommand::parameterAmount() {
     return 2;
 }
 
-void EqualCommand::setParameters(list<string> ls,Data* data1) {
+void EqualCommand::setParameters(list<string> ls,Data* data) {
     list<string>::iterator it;
     this->first = "";
     this->second = "";
@@ -129,15 +130,22 @@ void EqualCommand::setParameters(list<string> ls,Data* data1) {
         cout << "error" << endl;
         throw 0;
     }
-    int checkIfVAR = 0;
+    int flag = 0;
+    // take the variable before =
     for (it = ls.begin(); it != ls.end(); ++it) {
         if (*it == "var") {
-            it++;
-            this->first = *it;
-            i = 1;
-            checkIfVAR = 1;
+            this->newVar = true;
+            flag = 1;
             continue;
         }
+        this->first = *it;
+        i = 1;
+        break;
+    }
+    if(flag == 0)
+        this->newVar = false;
+    // take the variable after =
+    for (it; it != ls.end(); ++it) {
         if (*it == "=") {
             ++it;
             if (*it == "bind") {
@@ -150,12 +158,9 @@ void EqualCommand::setParameters(list<string> ls,Data* data1) {
             i = 2;
             break;
         }
-        if (checkIfVAR == 0) {
-            this->first = *it;
-            i = 1;
-        }
     }
-    if (i != 2) {
+
+    if (i != 2 || this->first == "var") {
         cout << "error" << endl;
         throw 0;
     }

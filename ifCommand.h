@@ -9,20 +9,24 @@
 #include <list>
 #include "Data.h"
 #include "Command.h"
+#include "ConditionCommand.h"
 
-class ifCommand : Command {
-    list<string> ls;
+class ifCommand : public Command {
     Data* data;
     string first;
     string second;
     bool isAbind;
+protected:
+    ConditionCommand cond;
+    list<string> commands;
 
 public:
-    ifCommand(Data* data){
+    ifCommand(Data* data) : cond(data){
         this->data=data;
     }
-    virtual double doCommand(Data* data){};
-    virtual void setParameters(list<string> ls){};
+    virtual double doCommand(Data* data);
+    virtual void setParameters(list<string> ls,Data* data1);
+    virtual void setParameters(list<string> ls);
     virtual int parameterAmount(){};
 };
 

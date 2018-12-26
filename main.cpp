@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <unistd.h>
 #include "Expression.h"
 #include "BinaryExpression.h"
@@ -21,26 +22,22 @@ using namespace std;
 #include <string.h>
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-
 
 
     Data* data = new Data();
-
-//    string z = "var rudder = bind /controls/flight/rudder";
-//
-//    string w = "connect 127.0.0.1 5402";
-//
-//    string q = "openDataServer 5400 100";
-//
-//    string zz = "rudder = 1";
-
-    string hezi = "if x<=7 {";
-
-
-Interpeter* inn = new Interpeter(data);
-
+    Interpeter* inn = Interpeter::getInstance(data);
+    ifstream ifs("data.txt");
+    std::string line;
     list<string> ls;
+    while (!ifs.eof()){
+
+        ls = inn->lexer(ifs);
+        inn->parser(ls);
+    }
+
+
+
+
 //    ls = inn->lexer(q);
 //    inn->parser(ls);
 //
@@ -59,8 +56,11 @@ Interpeter* inn = new Interpeter(data);
 //    ls = inn->lexer(zz);
 //    inn->parser(ls);
 
-    ls = inn->lexer(hezi);
+    /*ls = inn->lexer(hezi);
     inn->parser(ls);
+    if(data->getFlag() == 1){
+        // countinue reading until see "}"
+    }*/
 
 
 

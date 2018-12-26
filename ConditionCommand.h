@@ -12,18 +12,18 @@
 class ConditionCommand :public Command{
     Data *data;
     bool condition;
+    list<string> parameters;
 
 
 public:
-
     ConditionCommand(Data *data){
         this->data=data;
     }
 
-
-    virtual void doCommand(){};
+    virtual double doCommand(Data *data2){};
     virtual void setParameters(list<string> ls, Data* data1);
     virtual int parameterAmount(){};
+    bool isTrue();
 };
 
 
