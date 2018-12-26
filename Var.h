@@ -4,11 +4,13 @@
 
 #ifndef PROJECT_PART1_VAR_H
 #define PROJECT_PART1_VAR_H
+
 #include "Expression.h"
 #include <string>
 #include <iostream>
 #include <iterator>
 #include <map>
+
 using namespace std;
 
 class Var : public Expression {
@@ -17,35 +19,38 @@ protected:
 
 
 public:
-    Var(string s){
+    Var(string s) {
         this->str = s;
     }
 
-    virtual double calculate(Data* data){
+    virtual double calculate(Data *data) {
         double d;
 
-        if(this->str[0] == '-'){
+        if (this->str[0] == '-') {
             this->str.erase(str.begin());
         }
 
         // the key exit in the map
-        if(data->getSymTbl().count(str)){
+        if (data->getSymTbl().count(str)) {
             d = data->getSymTbl().find(str)->second;
-        }else{
-           throw 0;
+        } else if (data->getbindMap().count(str)){
+            string str1;
+            str1 = data->getbindMap().find(str)->second;
+            if (data->getSymTbl().count(str1)){
+                d = data->getSymTbl().find(str1)->second;
+            }
+        }
+        else {
+            throw 0;
         }
         return d;
     }
 
-    string getVar(){
+    string getVar() {
         return this->str;
     }
 
 };
-
-
-
-
 
 
 #endif //PROJECT_PART1_VAR_H

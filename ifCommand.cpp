@@ -11,7 +11,6 @@ double ifCommand::doCommand(Data* data)
     {
         Interpeter* inn = Interpeter::getInstance(data);
         list<string>::iterator it = commands.begin();
-        ++it;
         for (; it != commands.end(); ++it) {
             if (*it == "}")
                 break;

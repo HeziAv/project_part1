@@ -55,6 +55,7 @@ double EqualCommand::doCommand(Data *data2) {
             buffer = buffer + temp;
             temp = to_string(sec);
             buffer = buffer + " " + temp;
+            buffer=buffer+"\r\n";
             data2->setGlobal(buffer);
         }
     //if no need to transmit so anyway

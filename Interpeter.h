@@ -20,13 +20,14 @@
 #include "ConditionCommand.h"
 #include "ifCommand.h"
 #include "WhileCommand.h"
+#include "SleepCommand.h"
 
 using namespace std;
 
 class Interpeter {
     Data* data;
     std::map<string,ExpressionCommand*> commandMap = {{"openDataServer",new ExpressionCommand(new OpenServerCommand(data))},{"connect",new ExpressionCommand(new connectCommand(data))},{"=",new ExpressionCommand(new EqualCommand(data))},{"print",new ExpressionCommand(new PrintCommand(data))},{"Enterc",new ExpressionCommand(new EnterCCommand())},{"if",new ExpressionCommand(new ifCommand(data))}
-            ,{"while",new ExpressionCommand(new WhileCommand(data))}};
+            ,{"while",new ExpressionCommand(new WhileCommand(data))},{"sleep",new ExpressionCommand(new SleepCommand(data))}};
     static Interpeter* instance;
     Interpeter(Data* data1){
         data=data1;

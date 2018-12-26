@@ -33,7 +33,9 @@ int main() {
         ls = inn->lexer(ifs);
         inn->parser(ls);
     }
-
+while (true){
+    data->getSymTbl().find
+}
 
 
 

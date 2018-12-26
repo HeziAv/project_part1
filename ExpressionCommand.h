@@ -19,7 +19,7 @@ public:
     virtual double calculate(Data* data);
 
     virtual void setParameters1(list<string> ls,Data* data1){
-        this->command->setParameters(ls,data);
+        this->command->setParameters(ls,data1);
     }
 
     virtual int parameterAmount(){

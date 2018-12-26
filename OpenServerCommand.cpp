@@ -213,73 +213,73 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
         for (it = ls.begin(); it != ls.end(); ++it) {
             switch (j) {
                 case 0:
-                    key = "engine_rpm";
+                    key = "/instrumentation/airspeed-indicator/indicated-speed-kt";
                     break;
                 case 1 :
-                    key = "engine_throttle";
+                    key = "/instrumentation/altimeter/indicated-altitude-ft";
                     break;
                 case 2 :
-                    key = "flight_flaps";
+                    key = "/instrumentation/altimeter/pressure-alt-ft";
                     break;
                 case 3 :
-                    key = "flight_rudder";
+                    key = "/instrumentation/attitude-indicator/indicated-pitch-deg";
                     break;
                 case 4 :
-                    key = "flight_elevator";
+                    key = "/instrumentation/attitude-indicator/indicated-roll-deg";
                     break;
                 case 5 :
-                    key = "flight_aileron";
+                    key = "/instrumentation/attitude-indicator/internal-pitch-deg";
                     break;
                 case 6 :
-                    key = "vertical-speed-indicator_indicated-speed-fpm";
+                    key = "/instrumentation/attitude-indicator/internal-roll-deg";
                     break;
                 case 7 :
-                    key = "turn-indicator_indicated-turn-rate";
+                    key = "/instrumentation/encoder/indicated-altitude-ft";
                     break;
                 case 8 :
-                    key = "slip-skid-ball_indicated-slip-skid";
+                    key = "/instrumentation/encoder/pressure-alt-ft";
                     break;
                 case 9 :
-                    key = "magnetic-compass_indicated-heading-deg";
+                    key = "/instrumentation/gps/indicated-altitude-ft";
                     break;
                 case 10 :
-                    key = "indicated-heading-deg";
+                    key = "/instrumentation/gps/indicated-ground-speed-kt";
                     break;
                 case 11 :
-                    key = "gps_indicated-vertical-speed";
+                    key = "/instrumentation/gps/indicated-vertical-speed";
                     break;
                 case 12 :
-                    key = "gps_indicated-ground-speed-kt";
+                    key = "/instrumentation/heading-indicator/indicated-heading-deg";
                     break;
                 case 13 :
-                    key = "gps_indicated-altitude-ft";
+                    key = "/instrumentation/magnetic-compass/indicated-heading-deg";
                     break;
                 case 14:
-                    key = "encoder_indicated-altitude-ft";
+                    key = "/instrumentation/slip-skid-ball/indicated-slip-skid";
                     break;
                 case 15 :
-                    key = "encoder_pressure-alt-ft";
+                    key = "/instrumentation/turn-indicator/indicated-turn-rate";
                     break;
                 case 16 :
-                    key = "attitude-indicator_internal-roll-deg";
+                    key = "/instrumentation/vertical-speed-indicator/indicated-speed-fpm";
                     break;
                 case 17 :
-                    key = "attitude-indicator_internal-pitch-deg";
+                    key = "/controls/flight/aileron";
                     break;
                 case 18 :
-                    key = "attitude-indicator_indicated-roll-deg";
+                    key = "/controls/flight/elevator";
                     break;
                 case 19 :
-                    key = "attitude-indicator_indicated-pitch-deg";
+                    key = "/controls/flight/rudder";
                     break;
                 case 20 :
-                    key = "altimeter_pressure-alt-ft";
+                    key = "/controls/flight/flaps";
                     break;
                 case 21 :
-                    key = "altimeter_indicated-altitude-ft";
+                    key = "/controls/engines/engine/throttle";
                     break;
                 case 22 :
-                    key = "airspeed-indicator_indicated-speed-kt";
+                    key = "/engines/engine/rpm";
                     break;
                 default:
                     cout << "gaddi" << endl;

@@ -24,7 +24,7 @@ class Data {
 
 public:
     Data(){
-        map<string,double> SymTbl1 = {{"x",0}, {"heading", 0}, {"roll", 0}, {"pitch", 0}, {"pitch", 0}, {"rudder", 0}, {"elevator", 0}, {"alt", 0}};
+        map<string,double> SymTbl1 = {{"x",0}};
         this->SymTbl = SymTbl1;
         map<string,string> bindMap = {{"x","0"}};
         this->bindMap = bindMap;
