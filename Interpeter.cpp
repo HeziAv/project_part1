@@ -34,6 +34,27 @@ list<string> Interpeter::miniLexer(list<string> ls) {
             if(*it == ","){
                 object = *it;
             }
+            // in case of print
+            if(*it == "print"){
+                object = *it;
+                newList.push_back(object);
+                ++it;
+                if(*it == "\""){
+                    newList.push_back("\"");
+                    string val;
+                    for (it; it != ls.end() ; ++it) {
+                        if(*it != "\""){
+                            val = val + *it;
+                        }
+                    }
+                    newList.push_back(val);
+                    newList.push_back("\"");
+                    return newList;
+                }else{
+                    --it;
+                    continue;
+                }
+            }
             object = *it;
             newList.push_back(object);
             continue;
@@ -242,6 +263,7 @@ list<string>Interpeter:: lexer(string str) {
         }
         string address;
         for(int i = count;i<str.length();i++){
+            if(str[i] != '\"')
             address.push_back(str[i]);
         }
         listOfStrings.push_back(address);

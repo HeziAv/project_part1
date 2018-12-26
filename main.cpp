@@ -30,7 +30,6 @@ int main() {
     std::string line;
     list<string> ls;
     while (!ifs.eof()){
-
         ls = inn->lexer(ifs);
         inn->parser(ls);
     }

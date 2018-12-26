@@ -17,6 +17,7 @@ class ifCommand : public Command {
     string second;
     bool isAbind;
 protected:
+    list<string> conditionLine;
     ConditionCommand cond;
     list<string> commands;
 

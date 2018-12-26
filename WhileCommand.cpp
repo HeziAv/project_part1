@@ -11,11 +11,11 @@ double WhileCommand::doCommand(Data* data)
     {
         Interpeter* inn = Interpeter::getInstance(data);
         list<string>::iterator it = commands.begin();
-        ++it;
         for (; it != commands.end(); ++it) {
             if (*it == "}")
                 break;
             inn->parser(inn->lexer(*it));
         }
+        this->cond.setParameters(this->conditionLine,data);
     }
 }

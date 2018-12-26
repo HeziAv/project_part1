@@ -30,8 +30,8 @@ void ifCommand::setParameters(list<string> ls)
     Interpeter* inn = Interpeter::getInstance(data);
     list<string>::iterator it = ls.begin();
     list<string> lss;
-    lss = inn->lexer(*it);
-    cond.setParameters(lss, data);
+    this->conditionLine = inn->lexer(*it);
+    cond.setParameters(this->conditionLine, data);
     int i = 0;
     ++it;
     for (; it != ls.end(); ++it) {

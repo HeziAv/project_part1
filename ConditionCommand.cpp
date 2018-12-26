@@ -27,7 +27,7 @@ void ConditionCommand::setParameters(list<string> ls,Data* data1) {
             this->condition = false;
         }
     } else {
-        string second = v[v.size() - 1];
+        string second = v[v.size() - 2];
         postfix2 = a.infixToPostfix(second);
         Expression *ExSecond = a.stringToExpression(postfix2);
         string c = v[2];

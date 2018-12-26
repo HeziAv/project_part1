@@ -9,25 +9,23 @@
 void PrintCommand ::setParameters(list<string> ls,Data* data1) {
     this->first = "";
     list<string>::iterator it;
-    if(ls.size() != 2){
-        cout << "error" <<endl;
-        throw 0;
-    }
     // take the value that need to print
     for (it = ls.begin(); it != ls.end(); ++it) {
         if(*it == "print"){
             continue;
         } else{
-            this->first = *it;
+            if(*it == "\""){
+                ++it;
+                this->Quotation_mark = true;
+                this->first = *it;
+                break;
+            }else{
+                this->first = *it;
+                this->Quotation_mark = false;
+                break;
+            }
         }
     }
-    //check if need Quotation mark
-    string temp = this->first;
-    if(temp[0] == 34 && temp[temp.length()  - 1] == 34)
-        this->Quotation_mark = true;
-    else
-        this->Quotation_mark = false;
-
 }
 
 double PrintCommand ::doCommand(Data *data) {
