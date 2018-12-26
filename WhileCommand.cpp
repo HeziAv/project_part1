@@ -7,7 +7,7 @@
 
 double WhileCommand::doCommand(Data* data)
 {
-    while (true) /////// cond.isTrue())
+    while (this->cond.isTrue())
     {
         Interpeter* inn = Interpeter::getInstance(data);
         list<string>::iterator it = commands.begin();
