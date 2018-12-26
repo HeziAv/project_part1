@@ -129,7 +129,6 @@ void *connectCommand::client_sock(int sockfd, Data *data) {
         /* Now ask for a message from the user, this message
            * will be read by server
         */
-
         cout << "Please enter the message: " << endl;
 
 
