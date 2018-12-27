@@ -21,13 +21,20 @@
 using namespace std;
 #include <string.h>
 
-int main() {
-    Data* data = new Data();
-    Interpeter* inn = Interpeter::getInstance(data);
-    ifstream ifs("data.txt");
-    std::string line;
+
+
+int main(int argc, char *argv[]) {
+    Data *data = new Data();
+    Interpeter *inn = Interpeter::getInstance(data);
+    ifstream ourFile;
     list<string> ls;
-    while (!ifs.eof()){
+    string buffer = "";
+    ifstream ifs(argv[1]);
+    if (!ifs) {
+        throw "Failed Opening File";
+    }
+    // read each line in the file and build the flight
+    while (!ifs.eof()) {
         ls = inn->lexer(ifs);
         inn->parser(ls);
     }
@@ -35,5 +42,3 @@ int main() {
     ifs.close();
     return 0;
 }
-
-

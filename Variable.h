@@ -16,7 +16,7 @@ class Variable {
 public:
     Variable(){
         this->path="";
-        this->val=0.0;
+        this->val=0;
         this->isBound=false;
     }
 
