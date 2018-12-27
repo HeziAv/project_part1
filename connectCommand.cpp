@@ -7,7 +7,6 @@
 #include "Expression.h"
 #include "ShuntingYard.h"
 #include "Data.h"
-#include "DataWriterServer.h"
 #include <string.h>
 #include <iostream>
 
@@ -72,9 +71,7 @@ data4->setSockfd(sockfd);
     return 2;
 }
 
-int connectCommand::parameterAmount() {
-    return 2;
-}
+
 
 void connectCommand::setParameters(list<string> ls, Data *data1) {
     list<string>::iterator it;

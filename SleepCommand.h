@@ -20,7 +20,7 @@ class SleepCommand : public Command {
         }
         virtual double doCommand(Data* data);
         virtual void setParameters(list<string> ls,Data* data);
-        virtual int parameterAmount(){};
+
  };
 
 

@@ -21,7 +21,7 @@ public:
     }
 
     virtual void setParameters(list<string> ls,Data* data){};
-    virtual int parameterAmount(){};
+
 };
 
 

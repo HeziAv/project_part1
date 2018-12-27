@@ -5,10 +5,9 @@
 #include "OpenServerCommand.h"
 #include "Expression.h"
 #include "ShuntingYard.h"
-#include "DataReaderServ.h"
 #include "Data.h"
 #include <iostream>
-#include <pthread.h>
+
 #include <stdio.h>
 
 #include <stdio.h>
@@ -102,9 +101,7 @@ double OpenServerCommand::doCommand(Data *data) {
     return 2;
 }
 
-int OpenServerCommand::parameterAmount() {
-    return 2;
-}
+
 
 void OpenServerCommand::setParameters(list<string> ls, Data *data1) {
     list<string>::iterator it;

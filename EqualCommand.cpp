@@ -181,9 +181,6 @@ double EqualCommand::doCommand(Data *data2) {
 }
 
 
-int EqualCommand::parameterAmount() {
-    return 2;
-}
 
 void EqualCommand::setParameters(list<string> ls, Data *data) {
     list<string>::iterator it;

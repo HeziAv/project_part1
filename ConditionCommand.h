@@ -23,7 +23,6 @@ public:
 
     virtual double doCommand(Data *data2){};
     virtual void setParameters(list<string> ls, Data* data1);
-    virtual int parameterAmount(){};
     bool isTrue();
 };
 

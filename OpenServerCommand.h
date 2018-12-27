@@ -8,7 +8,6 @@
 
 #include "Command.h"
 #include "Data.h"
-#include <pthread.h>
 #include <iostream>
 #include <vector>
 
@@ -30,7 +29,7 @@ public:
 
     void setParameters(list<string> ls,Data* data1) override;
 
-    int parameterAmount() override;
+
     int getSocketId();
     void setSocketId(int var);
     static void* server_Sock(int port, Data* data) ;

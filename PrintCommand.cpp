@@ -55,7 +55,3 @@ double PrintCommand::doCommand(Data *data) {
 
     }
 }
-
-int PrintCommand::parameterAmount() {
-    return 2;
-}
