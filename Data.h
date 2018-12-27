@@ -147,8 +147,6 @@ public:
     int getSocketConnect() {
         return this->sockfd;
     }
-
-
 };
 
 
