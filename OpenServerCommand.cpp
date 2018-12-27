@@ -245,7 +245,7 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
                     key = "/controls/flight/flaps";
                     break;
                 case 21 :
-                    key = "/controls/current-engines/engine/throttle";
+                    key = "/controls/engines/current-engine/throttle";
                     break;
                 case 22 :
                     key = "/engines/engine/rpm";
@@ -254,9 +254,9 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
                     cout << "gaddi" << endl;
                     break;
             }
-            if (j == 22) {
-                cout << it << endl;
-            }
+//            if (j == 22) {
+//                cout << it << endl;
+//            }
 
             j++;
 
