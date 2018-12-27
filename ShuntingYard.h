@@ -15,13 +15,12 @@ using namespace std;
 class ShuntingYard {
     vector<Expression*> eraseLs;
 public:
-    int getPriority(string C);
+    int getPriority(string c);
     vector<string>  infixToPostfix(string s);
     Expression* stringToExpression(vector<string> postfix);
     bool isOperator(char s);
     bool isOperatorS(string s);
     ~ShuntingYard();
-
 };
 
 
