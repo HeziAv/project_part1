@@ -245,7 +245,7 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
                     key = "/controls/flight/flaps";
                     break;
                 case 21 :
-                    key = "/controls/engines/engine/throttle";
+                    key = "/controls/current-engines/engine/throttle";
                     break;
                 case 22 :
                     key = "/engines/engine/rpm";
