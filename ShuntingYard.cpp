@@ -207,3 +207,4 @@ ShuntingYard::~ShuntingYard() {
         delete(expression);
     }
 }
+
