@@ -17,15 +17,13 @@ class Var : public Expression {
 protected:
     string str;
 
-
 public:
-    Var(string s) {
-        this->str = s;
+    Var(string st) {
+        this->str = st;
     }
 
     double calculate(Data *data) override {
         double d;
-//
         if (data->has_key(str)) {
             d = (*data)[str]->getVal();
         }   else {
