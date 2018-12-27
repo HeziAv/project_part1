@@ -67,22 +67,6 @@ vector<string> ShuntingYard::infixToPostfix(string s){
         }
             //If an operator is scanned
         else{
-//            if(i == 0 && s[i] == '-'){
-//               param = "-";
-//               ++i;
-//               for(i ;i<s.size();i++){
-//                   if(!isOperator(s[i])){
-//                       param = param + s[i];
-//                   } else{
-//                       --i;
-//                       break;
-//                   }
-//               }
-//               output.push_back(param);
-//               stack.push(param);
-//               param = "";
-//                continue;
-//            }
             if(param != "")
             output.push_back(param);
             param = "";
@@ -207,5 +191,3 @@ ShuntingYard::~ShuntingYard() {
         delete(expression);
     }
 }
-
-
