@@ -40,6 +40,8 @@ public:
         return isBound;
     }
 
+    ~Variable() = default;
+
 
 
 };

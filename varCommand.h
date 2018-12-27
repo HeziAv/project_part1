@@ -10,8 +10,12 @@
 
 class varCommand : public Command {
 string first;
+Data* data;
 
 public:
+    varCommand(Data* data){
+        this->data=data;
+    }
     double doCommand(Data *data) {
         Variable *variable = new Variable;
         variable->setVal(0.0);

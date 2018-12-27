@@ -113,6 +113,7 @@ vector<string> ShuntingYard::infixToPostfix(string s){
 
 Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
     stack<Expression *> stack;
+    Expression* ex;
     int flag = 0;
     // clear empty strings in the vector
     if(postfix[0] == ""){
@@ -140,13 +141,19 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
                }
            }
            if(var == 0){
-               stack.push(new Number(stod(postfix[i])));
+               ex = new Number(stod(postfix[i]));
+               stack.push(ex);
+               eraseLs.push_back(ex);
            }else{
                if(flagMinus == 1){
-                   stack.push(new Neg(new Var(postfix[i])));
+                   ex = new Neg(new Var(postfix[i]));
+                   stack.push(ex);
+                   eraseLs.push_back(ex);
                }
-                stack.push(new Var(postfix[i]));
-            }
+                ex = new Var(postfix[i]);
+                stack.push(ex);
+               eraseLs.push_back(ex);
+           }
         } else {
            Expression *right = stack.top();
            stack.pop();
@@ -154,16 +161,24 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
            stack.pop();
             switch (postfix[i][0]) {
                 case '+':
-                    stack.push(new Plus(left, right));
+                    ex = new Plus(left, right);
+                    stack.push(ex);
+                    eraseLs.push_back(ex);
                     break;
                 case '-':
-                    stack.push(new Minus(left, right));
+                    ex = new Minus(left, right);
+                    stack.push(ex);
+                    eraseLs.push_back(ex);
                     break;
                 case '/':
-                    stack.push(new Div(left, right));
+                    ex = new Div(left, right);
+                    stack.push(ex);
+                    eraseLs.push_back(ex);
                     break;
                 case '*':
-                    stack.push(new Mul(left, right));
+                    ex = new Mul(left, right);
+                    stack.push(ex);
+                    eraseLs.push_back(ex);
                     break;
             }
 
@@ -185,4 +200,10 @@ bool ShuntingYard::isOperatorS(string s){
         return true;
     }
     return false;
+}
+
+ShuntingYard::~ShuntingYard() {
+    for(auto expression: eraseLs){
+        delete(expression);
+    }
 }

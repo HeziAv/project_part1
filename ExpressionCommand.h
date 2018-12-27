@@ -30,6 +30,10 @@ public:
         this->data=data1;
     }
 
+    ~ExpressionCommand(){
+        delete command;
+    }
+
 
 };
 

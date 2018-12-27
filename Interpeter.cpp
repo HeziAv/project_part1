@@ -34,27 +34,27 @@ list<string> Interpeter::miniLexer(list<string> ls) {
             if(*it == ","){
                 object = *it;
             }
-            // in case of print
-            if(*it == "print"){
-                object = *it;
-                newList.push_back(object);
-                ++it;
-                if(*it == "\""){
-                    newList.push_back("\"");
-                    string val;
-                    for (it; it != ls.end() ; ++it) {
-                        if(*it != "\""){
-                            val = val + *it;
-                        }
-                    }
-                    newList.push_back(val);
-                    newList.push_back("\"");
-                    return newList;
-                }else{
-                    --it;
-                    continue;
-                }
-            }
+//            // in case of print
+//            if(*it == "print"){
+//                object = *it;
+//                newList.push_back(object);
+//                ++it;
+//                if(*it == "\""){
+//                    newList.push_back("\"");
+//                    string val;
+//                    for (it; it != ls.end() ; ++it) {
+//                        if(*it != "\""){
+//                            val = val + *it;
+//                        }
+//                    }
+//                    newList.push_back(val);
+//                    newList.push_back("\"");
+//                    return newList;
+//                }else{
+//                    --it;
+//                    continue;
+//                }
+//            }
             object = *it;
             newList.push_back(object);
             continue;
@@ -177,23 +177,41 @@ list<string>Interpeter:: lexer(string str) {
                 if(checkIfOperatorBefore == -1)
                     throw 0;
                 // add zero before minus
-               if(str[index] == '-') {
-                   int z = 1;
-                   while((str[checkIfOperatorBefore]) == 32 && checkIfOperatorBefore != -1){
-                       ++z;
-                       checkIfOperatorBefore = index - z;
-                   }
-                   if (isOperator(str[checkIfOperatorBefore]) || isFixToken(str[checkIfOperatorBefore])) {
-                       if (object != "")
-                           listOfStrings.push_back(object);
-                       listOfStrings.push_back("0");
-                       listOfStrings.push_back("-");
-                       object = "";
-                       var = 0;
-                       number = 0;
-                       continue;
-                   }
-               }
+                if(str[index] == '-') {
+                    if(object != ""){
+                        if(isFixTokenS(object)) {
+                            listOfStrings.push_back(object);
+                            if(object == ")") {
+                                listOfStrings.push_back("+");
+                            }
+                            listOfStrings.push_back("0");
+                            listOfStrings.push_back("-");
+                            object = "";
+                            var = 0;
+                            number = 0;
+                            continue;
+                        }
+                    }
+                    list<string>::iterator bef;
+                    int x = 0;
+                    string checkc;
+                    for (bef = listOfStrings.begin();bef != listOfStrings.end();++bef) {
+                        if(x < listOfStrings.size())
+                            checkc = *bef;
+                        ++x;
+                    }
+                    if(isFixTokenS(checkc)) {
+                        if(checkc == ")"){
+                            listOfStrings.push_back("+");
+                        }
+                        listOfStrings.push_back("0");
+                        listOfStrings.push_back("-");
+                        object = "";
+                        var = 0;
+                        number = 0;
+                        continue;
+                    }
+                }
                 if(object != "")
                     listOfStrings.push_back(object);
                 object = "";

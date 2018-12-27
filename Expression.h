@@ -19,6 +19,7 @@ class Expression {
 public:
     //virtual double calculate()=0;
     virtual double calculate(Data* data)=0;
+    virtual  ~Expression() = default;
 
 };
 

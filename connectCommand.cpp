@@ -22,12 +22,6 @@ using namespace std;
 #include <thread>
 
 
-struct MyParams {
-    int port;
-    string address;
-    Data *data;
-};
-
 double connectCommand::doCommand(Data *data4) {
 
     ShuntingYard a;
@@ -42,10 +36,7 @@ double connectCommand::doCommand(Data *data4) {
 //    cout << address << endl;
     //fixness check for address
 
-    struct MyParams *params = new MyParams();
-    params->port = port2;
-    params->address = this->address;
-    params->data = data4;
+
 
 
     int sockfd, portno, n;
@@ -53,7 +44,7 @@ double connectCommand::doCommand(Data *data4) {
     struct hostent *server;
     char buffer[256];
 
-    portno = params->port;
+    portno = port2;
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     data4->setSockfd(sockfd);
@@ -63,7 +54,7 @@ double connectCommand::doCommand(Data *data4) {
     }
 
 
-    server = gethostbyname(params->address.c_str());
+    server = gethostbyname(this->address.c_str());
 
     if (server == NULL) {
         fprintf(stderr, "ERROR, no such host\n");
