@@ -11,17 +11,17 @@
 class varCommand : public Command {
 string first;
 Data* data;
+Variable* var = new Variable();
 
 public:
     varCommand(Data* data){
         this->data=data;
     }
     double doCommand(Data *data) {
-        Variable variable;
-        variable.setVal(0.0);
-        variable.setIsBound(false);
-        variable.setPath("");
-        data->addToNewTable(this->first, &variable);
+        var->setVal(0);
+        var->setIsBound(false);
+        var->setPath("");
+        data->addToNewTable(this->first, var);
     }
 
     void setParameters(list<string> ls, Data *data1) {
@@ -34,7 +34,9 @@ public:
         }
     }
 
-    ~varCommand(){};
+    ~varCommand(){
+        delete(var);
+    };
 
 
 
