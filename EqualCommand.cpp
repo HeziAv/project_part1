@@ -22,10 +22,10 @@ using namespace std;
 
 
 
-struct MyParams {
-    int port;
-    Data *data;
-};
+//struct MyParams {
+//    int port;
+//    Data *data;
+//};
 
 
 double EqualCommand::doCommand(Data *data2) {
@@ -74,7 +74,7 @@ double EqualCommand::doCommand(Data *data2) {
                 buffer = buffer + temp;
                 temp = to_string(sec);
                 buffer = buffer + " " + temp;
-                buffer = buffer + "\r\n";
+                buffer = buffer + " \r\n";
                 data2->setGlobal(buffer);
             }
 

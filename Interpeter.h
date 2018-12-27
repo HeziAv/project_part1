@@ -44,6 +44,18 @@ public:
     bool isFixToken(char s);
 
 
+    void exit(Data *data1) {
+        //close the sockets
+        close(data1->getSokcetServer());
+        close(data1->getSocketConnect());
+
+        //go over the maps and clear them
+        map<string, Variable*>::iterator iterator;
+        for (iterator = data->getNewTbl().begin(); iterator != data->getNewTbl().end(); ++iterator) {
+            delete (iterator->second);
+        }
+        data->getNewTbl().clear();
+    }
     };
 
 #endif //PROJECT_PART1_INTERPETER_H

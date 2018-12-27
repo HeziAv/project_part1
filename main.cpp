@@ -31,10 +31,8 @@ int main() {
         ls = inn->lexer(ifs);
         inn->parser(ls);
     }
-
-    while (true){
-
-    }
+    inn->exit(data);
+    ifs.close();
     return 0;
 }
 

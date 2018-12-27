@@ -22,15 +22,18 @@ class Data {
     map<string, Variable *> newTbl;
     string global;
     int sockfd;
+    int servSocket;
 public:
     Data() = default;
 
     string getGlobal() const {
         return global;
     }
+
     void setSockfd(int s) {
-        this->sockfd=s;
+        this->sockfd = s;
     }
+
     void setGlobal(string s) {
 
 //        if (global==""){
@@ -42,61 +45,59 @@ public:
 //    }
 
         char buffer[256];
-    for (int i = 0; i < 256; i++) {
-        buffer[i] = '\000';
-    }
+        for (int i = 0; i < 256; i++) {
+            buffer[i] = '\000';
+        }
 
 //    while (true) {
 
 //        if (data->getGlobal() != "") {
 
-            int n;
+        int n;
 
 
-            /* Now ask for a message from the user, this message
-               * will be read by server
-            */
+        /* Now ask for a message from the user, this message
+           * will be read by server
+        */
 //            cout << "Please enter the message: " << endl;
 
 
-            bzero(buffer, 256);
+        bzero(buffer, 256);
 
-            fgets(buffer, 255, stdin);
+//            fgets(buffer, 255, stdin);
 
 //            string s = global;
-            for (int i = 0; i < s.length(); i++) {
-                buffer[i] = s[i];
-            }
+        for (int i = 0; i < s.length(); i++) {
+            buffer[i] = s[i];
+        }
 
-            /* Send message to the server */
+        /* Send message to the server */
 
-            n = write(sockfd, buffer, strlen(buffer));
+        n = write(sockfd, buffer, strlen(buffer));
 
 
-            if (n < 0) {
-                perror("ERROR writing to socket");
-                exit(1);
-            }
+        if (n < 0) {
+            perror("ERROR writing to socket");
+            exit(1);
+        }
 
-            /* Now read server response */
-            bzero(buffer, 256);
-            n = read(sockfd, buffer, 255);
+        /* Now read server response */
+        bzero(buffer, 256);
+        n = read(sockfd, buffer, 255);
 
-            if (n < 0) {
-                perror("ERROR reading from socket");
-                exit(1);
-            }
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
 
-            cout << buffer << endl;
+//            cout << buffer << endl;
 
 //        printf("%s\n", buffer);
 
 //            data->setGlobal("");
 //        }
 //    }
-}
-
-
+    }
 
 
     void addToNewTable(const string &first, Variable *second) {
@@ -106,6 +107,10 @@ public:
     Variable *operator[](const string &key) {
         if (newTbl.count(key) == 0) throw std::invalid_argument("no such key");
         return newTbl[key];
+    }
+
+    map<string, Variable *> getNewTbl() {
+        return this->newTbl;
     }
 
     Variable *operator[](const string &key) const {
@@ -129,6 +134,18 @@ public:
             }
         }
         return key;
+    }
+
+    int getSokcetServer() {
+        return servSocket;
+    }
+
+    void setSokcetServer(int d) {
+        this->servSocket = d;
+    }
+
+    int getSocketConnect() {
+        return this->sockfd;
     }
 
 

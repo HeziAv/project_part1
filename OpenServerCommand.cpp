@@ -294,3 +294,4 @@ list<double> OpenServerCommand::split(string buffer) {
     ret.push_back(stod(buffer.substr(begin)));
     return ret;
 }
+

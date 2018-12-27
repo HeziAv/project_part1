@@ -35,7 +35,7 @@ public:
     void setSocketId(int var);
     static void* server_Sock(int port, Data* data) ;
     static list<double> split(string);
-
+//    void exit(Data *data1);
 };
 
 

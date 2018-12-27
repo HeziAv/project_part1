@@ -110,7 +110,7 @@ void connectCommand::setParameters(list<string> ls, Data *data1) {
     }
 }
 
-void connectCommand::client_sock(int sockfd, string global) {}
+//void connectCommand::client_sock(int sockfd, string global) {}
 //    char buffer[256];
 //    for (int i = 0; i < 256; i++) {
 //        buffer[i] = '\000';
