@@ -41,3 +41,5 @@ public:
 
 
 #endif //PROJECT_PART1_VAR_H
+
+

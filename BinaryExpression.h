@@ -24,4 +24,6 @@ public:
 };
 
 
+
+
 #endif //PROJECT_PART1_BINARYEXPRESSION_H

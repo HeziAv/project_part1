@@ -70,3 +70,5 @@ void ConditionCommand::setParameters(list<string> ls,Data* data1) {
         }
     }
 }
+
+

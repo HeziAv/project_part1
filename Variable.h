@@ -48,3 +48,5 @@ public:
 
 
 #endif //PROJECT_PART1_VARIABLE_H
+
+
