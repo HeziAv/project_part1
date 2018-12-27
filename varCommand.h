@@ -17,12 +17,12 @@ public:
         this->data=data;
     }
     double doCommand(Data *data) {
-        Variable *variable = new Variable;
-        variable->setVal(0.0);
-        variable->setIsBound(false);
-        variable->setPath("");
-        data->addToNewTable(this->first, variable);
-    };
+        Variable variable;
+        variable.setVal(0.0);
+        variable.setIsBound(false);
+        variable.setPath("");
+        data->addToNewTable(this->first, &variable);
+    }
 
     void setParameters(list<string> ls, Data *data1) {
         list<string>::iterator iterator;
@@ -32,7 +32,12 @@ public:
                 break;
             }
         }
-    };
+    }
+
+    ~varCommand(){};
+
+
+
 
 //    int parameterAmount() {};
 };
