@@ -12,36 +12,53 @@ using namespace std;
 
 #include <map>
 #include <mutex>
+#include <iostream>
 
 
 class Data {
-    map<string, Variable*> newTbl;
+    map<string, Variable *> newTbl;
     string global;
 public:
     Data() = default;
 
-    string getGlobal()  const {
+    string getGlobal() const {
         return global;
     }
 
-    void setGlobal(string s)    {
+    void setGlobal(string s) {
         global = s;
     }
-    void addToNewTable(const string &first, Variable* second) {
+
+    void addToNewTable(const string &first, Variable *second) {
         newTbl[first] = second;
     }
 
-    Variable* operator[](const string &key)    {
+    Variable *operator[](const string &key) {
         if (newTbl.count(key) == 0) throw std::invalid_argument("no such key");
         return newTbl[key];
     }
 
-    Variable* operator[](const string &key) const   {
+    Variable *operator[](const string &key) const {
         return newTbl.at(key);
     }
 
-    bool has_key(const string& key) const {
+    bool has_key(const string &key) const {
         return newTbl.count(key) == 1;
+    }
+
+    string hasPath(string path) {
+        string key = "";
+
+        map<string, Variable *>::iterator it;
+
+        for (it = this->newTbl.begin(); it != this->newTbl.end(); it++) {
+            if (it->second->getIsBound()) {
+                if (it->second->getPath() == path) {
+                    return it->first;
+                }
+            }
+        }
+        return key;
     }
 
 

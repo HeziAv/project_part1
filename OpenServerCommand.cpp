@@ -156,7 +156,6 @@ pair<string, string> read_until(int sockfd, string sep, string remainder) {
 
 void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
     char buffer[256];
-    int n;
     string remainder;
     string buff;
 
@@ -255,21 +254,26 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
                     cout << "gaddi" << endl;
                     break;
             }
+            if (j == 22) {
+                cout << it << endl;
+            }
+
             j++;
 
 
             if (data->has_key(key)) {
                 (*data)[key]->setVal(it);
-            } else {
+            } else if (data->hasPath(key)!=""){
+                (*data)[(data->hasPath(key))]->setVal(it);
+            }
+            else {
                 auto *variable = new Variable;
                 variable->setVal(it);
                 variable->setIsBound(true);
                 variable->setPath(key);
                 data->addToNewTable(key, variable);
             }
-            if (j==22){
-                cout<<it<<endl;
-            }
+
         }
     }
 }
