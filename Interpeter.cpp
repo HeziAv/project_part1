@@ -350,7 +350,10 @@ void Interpeter::parser(list<string> ls) {
                 expressionCommand->calculate(data);
             }
             commandWasRun = true;
-            break;
+            if (*it!="var"){
+                break;
+            }
+
         }
     }
     if (! commandWasRun)

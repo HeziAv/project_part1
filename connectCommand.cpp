@@ -37,9 +37,9 @@ double connectCommand::doCommand(Data *data4) {
     Expression *ExFirst = a.stringToExpression(postfix);
 
     int port2 = (int) ExFirst->calculate(data4);
-    cout << port2 << endl;
+//    cout << port2 << endl;
 
-    cout << address << endl;
+//    cout << address << endl;
     //fixness check for address
 
     struct MyParams *params = new MyParams();
@@ -56,6 +56,7 @@ double connectCommand::doCommand(Data *data4) {
     portno = params->port;
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    data4->setSockfd(sockfd);
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);

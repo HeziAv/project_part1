@@ -16,7 +16,7 @@ public:
     };
     virtual double doCommand(Data* data){
         char i;
-        std::cout << "enter a c" << std::endl;
+//        std::cout << "enter a c" << std::endl;
         std::cin >> i ;
     }
 

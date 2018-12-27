@@ -49,7 +49,7 @@ double OpenServerCommand::doCommand(Data *data) {
 
 
     int port = (int) ExFirst->calculate(data);
-    cout << port << endl;
+//    cout << port << endl;
 
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
@@ -58,7 +58,7 @@ double OpenServerCommand::doCommand(Data *data) {
 
 /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
+    data->setSokcetServer(sockfd);
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);
