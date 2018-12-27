@@ -31,14 +31,6 @@ double connectCommand::doCommand(Data *data4) {
     Expression *ExFirst = a.stringToExpression(postfix);
 
     int port2 = (int) ExFirst->calculate(data4);
-//    cout << port2 << endl;
-
-//    cout << address << endl;
-    //fixness check for address
-
-
-
-
     int sockfd, portno, n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
