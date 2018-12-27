@@ -22,8 +22,6 @@ using namespace std;
 #include <string.h>
 
 int main() {
-
-
     Data* data = new Data();
     Interpeter* inn = Interpeter::getInstance(data);
     ifstream ifs("data.txt");
@@ -33,49 +31,6 @@ int main() {
         ls = inn->lexer(ifs);
         inn->parser(ls);
     }
-//while (true){
-//    double f = data->getSymTbl().find("rpm")->second;
-//    cout<<f;
-//}
-
-
-
-//    ls = inn->lexer(q);
-//    inn->parser(ls);
-//
-//    int i;
-//    std::cout << "enter 1" << std::endl;
-//    std::cin >> i ;
-//    if (i==1){
-//
-//    ls = inn->lexer(w);
-//    inn->parser(ls);
-//    }
-//    std::cout << "enter the var" << std::endl;
-//    ls = inn->lexer(z);
-//    inn->parser(ls);
-
-//    ls = inn->lexer(zz);
-//    inn->parser(ls);
-
-    /*ls = inn->lexer(hezi);
-    inn->parser(ls);
-    if(data->getFlag() == 1){
-        // countinue reading until see "}"
-    }*/
-
-
-
-
-
-
-//    std::cout << "enter 1" << std::endl;
-//    std::cin >> i ;
-//    if (i==1){
-//        string buffer = "set controls/flight/rudder -1";
-//        int len = buffer.length();
-//
-//    }
 
     while (true){
 

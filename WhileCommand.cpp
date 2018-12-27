@@ -10,11 +10,10 @@ double WhileCommand::doCommand(Data* data)
     while (this->cond.isTrue())
     {
         Interpeter* inn = Interpeter::getInstance(data);
-        list<string>::iterator it = commands.begin();
-        for (; it != commands.end(); ++it) {
-            if (*it == "}")
+        for (auto &command : commands) {
+            if (command == "}")
                 break;
-            inn->parser(inn->lexer(*it));
+            inn->parser(inn->lexer(command));
         }
         this->cond.setParameters(this->conditionLine,data);
     }

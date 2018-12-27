@@ -12,7 +12,6 @@
 
 class EqualCommand : public Command{
     list<string> ls;
-    Data* data;
     string first;
     string second;
     bool isAbind;
@@ -21,7 +20,7 @@ class EqualCommand : public Command{
 
 public:
     EqualCommand(Data* data){
-            this->data=data;
+        // TODO
     }
     virtual double doCommand(Data* data);
     virtual void setParameters(list<string> ls,Data* data1);

@@ -6,83 +6,43 @@
 #define PROJECT_PART1_DATA_H
 
 #include "Data.h"
+#include "Variable.h"
+
 using namespace std;
+
 #include <map>
 #include <mutex>
 
 
 class Data {
-    map<string,double> SymTbl;
-    map<string,string> bindMap;
-    int readSocket;
-    int writeSocket;
-    int Hz;
-    string buffer;
-    int flag = 0;
-//    mutex mtx;
-
-
+    map<string, Variable*> newTbl;
+    string global;
 public:
-    Data(){
-        map<string,double> SymTbl1 = {{"x",0}};
-        this->SymTbl = SymTbl1;
-        map<string,string> bindMap = {{"x","0"}};
-        this->bindMap = bindMap;
-        this->readSocket=0;
-        this->writeSocket=0;
-        this->buffer="";
+    Data() = default;
 
-
-
-
+    string getGlobal()  const {
+        return global;
     }
 
-    map<string,double> getSymTbl();
-    map<string,string> getbindMap();
-    void setSymTbl(string first, double second);
-    void setSymTbl3(map<string,double> x);
-    void setbindMap(string first,string second);
-    int getWriteSocket(){
-            return this->writeSocket;
+    void setGlobal(string s)    {
+        global = s;
+    }
+    void addToNewTable(const string &first, Variable* second) {
+        newTbl[first] = second;
     }
 
-    void setSocket(int so){
-            this->writeSocket = so;
-    }
-    void setReadSocket(int so){
-        this->readSocket = so;
-    }
-    int getReadSocket(){
-        return this->readSocket;
+    Variable* operator[](const string &key)    {
+        if (newTbl.count(key) == 0) throw std::invalid_argument("no such key");
+        return newTbl[key];
     }
 
-    void setHz(int so){
-        this->Hz = so;
-    }
-    int getHz(){
-        return this->Hz;
+    Variable* operator[](const string &key) const   {
+        return newTbl.at(key);
     }
 
-    void setGlobal(string so){
-        this->buffer = so;
+    bool has_key(const string& key) const {
+        return newTbl.count(key) == 1;
     }
-    string getGlobal(){
-        return this->buffer;;
-    }
-    void setFlag(int f){
-        flag = f;
-    }
-    int getFlag(){
-        return flag;
-    }
-
-//    mutex getMutex(){
-//        return this->mtx;;
-//    }
-
-
-
-
 
 
 };

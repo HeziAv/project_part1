@@ -55,11 +55,7 @@ double connectCommand::doCommand(Data *data4) {
 
     portno = params->port;
 
-    /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    params->data->setSocket(sockfd);
-//    cout << sockfd << endl;
-//set socket id to data
     if (sockfd < 0) {
         perror("ERROR opening socket");
         exit(1);
@@ -96,7 +92,7 @@ int connectCommand::parameterAmount() {
     return 2;
 }
 
-void connectCommand::setParameters(list<string> ls,Data* data1) {
+void connectCommand::setParameters(list<string> ls, Data *data1) {
     list<string>::iterator it;
     int i = 0;
     for (it = ls.begin(); it != ls.end(); ++it) {
@@ -122,50 +118,50 @@ void *connectCommand::client_sock(int sockfd, Data *data) {
 
     while (true) {
 
-    if (data->getGlobal() != "") {
+        if (data->getGlobal() != "") {
 
-        int n;
-
-
-        /* Now ask for a message from the user, this message
-           * will be read by server
-        */
-        cout << "Please enter the message: " << endl;
+            int n;
 
 
-        bzero(buffer, 256);
-
-        fgets(buffer, 255, stdin);
-
-        string s = data->getGlobal();
-        for (int i = 0; i < s.length(); i++) {
-            buffer[i] = s[i];
-        }
-
-        /* Send message to the server */
-
-        n = write(sockfd, buffer, strlen(buffer));
+            /* Now ask for a message from the user, this message
+               * will be read by server
+            */
+            cout << "Please enter the message: " << endl;
 
 
-        if (n < 0) {
-            perror("ERROR writing to socket");
-            exit(1);
-        }
+            bzero(buffer, 256);
 
-        /* Now read server response */
-        bzero(buffer, 256);
-        n = read(sockfd, buffer, 255);
+            fgets(buffer, 255, stdin);
 
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
-        }
+            string s = data->getGlobal();
+            for (int i = 0; i < s.length(); i++) {
+                buffer[i] = s[i];
+            }
 
-        cout << buffer << endl;
+            /* Send message to the server */
+
+            n = write(sockfd, buffer, strlen(buffer));
+
+
+            if (n < 0) {
+                perror("ERROR writing to socket");
+                exit(1);
+            }
+
+            /* Now read server response */
+            bzero(buffer, 256);
+            n = read(sockfd, buffer, 255);
+
+            if (n < 0) {
+                perror("ERROR reading from socket");
+                exit(1);
+            }
+
+//            cout << buffer << endl;
 
 //        printf("%s\n", buffer);
 
-        data->setGlobal("");
-    }
+            data->setGlobal("");
+        }
     }
 }

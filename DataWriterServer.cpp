@@ -37,7 +37,6 @@ void *DataWriterServer::client_sock(void *arg) {
 
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    params->data->setSocket(sockfd);
     cout << sockfd << endl;
 //set socket id to data
     if (sockfd < 0) {

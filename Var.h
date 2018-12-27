@@ -23,25 +23,14 @@ public:
         this->str = s;
     }
 
-    virtual double calculate(Data *data) {
+    double calculate(Data *data) override {
         double d;
-
-        if (this->str[0] == '-') {
-            this->str.erase(str.begin());
-        }
-
-        // the key exit in the map
-        if (data->getSymTbl().count(str)) {
-            d = data->getSymTbl().find(str)->second;
-        } else if (data->getbindMap().count(str)){
-            string str1;
-            str1 = data->getbindMap().find(str)->second;
-            if (data->getSymTbl().count(str1)){
-                d = data->getSymTbl().find(str1)->second;
-            }
-        }
-        else {
-            throw 0;
+//
+        if (data->has_key(str)) {
+            d = (*data)[str]->getVal();
+        }   else {
+            // TODO key does not exist
+            throw invalid_argument("key does exist");
         }
         return d;
     }

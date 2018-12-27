@@ -30,38 +30,73 @@ struct MyParams {
 
 double EqualCommand::doCommand(Data *data2) {
     // if there is bind
-    if (this->isAbind == true) {
-        data2->setbindMap(this->first, this->second); // found
-    // if there only var but not bind
+    if (this->isAbind) {
+        if (data2->has_key(this->second)) {
+            data2->addToNewTable(this->first, (*data2)[this->second]);
+        } else {
+            Variable *variable = new Variable;
+            variable->setVal(0.0);
+            variable->setIsBound(true);
+            variable->setPath(this->second);
+            data2->addToNewTable(this->first, variable);
+        }
+
+        // if there only var but not bind
     } else if (this->isVar) {
         ShuntingYard a;
         vector<string> postfix;
         postfix = a.infixToPostfix(this->second);
         Expression *ExFirst = a.stringToExpression(postfix);
         double sec = ExFirst->calculate(data2);
-        data2->setSymTbl(this->first, sec);
+
+        Variable *variable = new Variable;
+        variable->setVal(sec);
+        variable->setIsBound(false);
+        variable->setPath("");
+        data2->addToNewTable(this->first, variable);
+
+
+//        data2->setSymTbl(this->first, sec);
     }
-    // if there no var and no bind
+        // if there no var and no bind
     else {
         ShuntingYard a;
         vector<string> postfix;
         postfix = a.infixToPostfix(this->second);
         Expression *ExFirst = a.stringToExpression(postfix);
         double sec = ExFirst->calculate(data2);
-    //if need to transmit to simulator
-        if (data2->getbindMap().count(this->first) > 0) {
-            string buffer = "set ";
-            string temp = data2->getbindMap().find(first)->second;
-            buffer = buffer + temp;
-            temp = to_string(sec);
-            buffer = buffer + " " + temp;
-            buffer=buffer+"\r\n";
-            data2->setGlobal(buffer);
+
+
+        if (data2->has_key(this->first)) {
+            if ((*data2)[this->first]->getIsBound()) {
+                string buffer = "set ";
+                string temp = (*data2)[this->first]->getPath();
+                buffer = buffer + temp;
+                temp = to_string(sec);
+                buffer = buffer + " " + temp;
+                buffer = buffer + "\r\n";
+                data2->setGlobal(buffer);
+            }
+
+            (*data2)[this->first]->setVal(sec);
         }
-    //if no need to transmit so anyway
-    //update the SyTbl
-        data2->setSymTbl(this->first, sec);
     }
+    //if need to transmit to simulator
+
+
+//
+//        if (data2->getbindMap().count(this->first) > 0) {
+//            string buffer = "set ";
+//            string temp = data2->getbindMap().find(first)->second;
+//            buffer = buffer + temp;
+//            temp = to_string(sec);
+//            buffer = buffer + " " + temp;
+//            buffer=buffer+"\r\n";
+//            data2->setGlobal(buffer);
+//        }
+
+
+//    }
 //
 //    else
 //        {

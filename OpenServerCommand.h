@@ -10,27 +10,31 @@
 #include "Data.h"
 #include <pthread.h>
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 
 class OpenServerCommand : public Command {
     string first;
     string second;
-    int SocketId;
+    int SocketId{};
     Data* data;
 
 public:
-    OpenServerCommand(Data* data){
+    explicit OpenServerCommand(Data* data){
         this->data=data;
     };
-    virtual double doCommand(Data* data);
-    virtual void setParameters(list<string> ls,Data* data1);
-    virtual int parameterAmount();
-    static void* thread_func(void* threadid);
+
+    double doCommand(Data* data) override;
+
+    void setParameters(list<string> ls,Data* data1) override;
+
+    int parameterAmount() override;
     int getSocketId();
     void setSocketId(int var);
     static void* server_Sock(int port, Data* data) ;
-
+    static list<double> split(string);
 
 };
 

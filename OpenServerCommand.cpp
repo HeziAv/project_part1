@@ -50,17 +50,6 @@ double OpenServerCommand::doCommand(Data *data) {
 
     int port = (int) ExFirst->calculate(data);
     cout << port << endl;
-    int Hz = (int) ExSecond->calculate(data);
-    cout << Hz << endl;
-    data->setHz(Hz);
-
-//    struct MyParams* params = new MyParams();
-//    params->port=port;
-
-//    params->data = data;
-
-
-//    struct MyParams *params = (struct MyParams *) arg;
 
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
@@ -105,8 +94,6 @@ double OpenServerCommand::doCommand(Data *data) {
         exit(1);
     }
 
-    data->setReadSocket(newsockfd);
-
 
     thread serverThread(server_Sock, newsockfd, data);
     serverThread.detach();
@@ -119,7 +106,7 @@ int OpenServerCommand::parameterAmount() {
     return 2;
 }
 
-void OpenServerCommand::setParameters(list<string> ls,Data* data1) {
+void OpenServerCommand::setParameters(list<string> ls, Data *data1) {
     list<string>::iterator it;
     int i = 0;
     for (it = ls.begin(); it != ls.end(); ++it) {
@@ -147,71 +134,53 @@ void OpenServerCommand::setSocketId(int var) {
     this->SocketId = var;
 }
 
+pair<string, string> read_until(int sockfd, string sep, string remainder) {
+    char buffer[256];
+    while (remainder.find(sep) == string::npos) {
+        ssize_t bytes_read = (read(sockfd, buffer, 255));
+        if (bytes_read < 0) {
+            perror("Invalid socket read");
+            exit(1);
+        }
+        buffer[bytes_read] = 0;
+        remainder += string(buffer);
+    }
+
+    unsigned long pos = remainder.find(sep);
+    pair<string, string> output;
+    output.first = remainder.substr(0, pos);
+    output.second = remainder.substr(pos + 1);
+
+    return output;
+}
+
 void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
     char buffer[256];
     int n;
+    string remainder;
+    string buff;
 
-//    lock_guard<mutex> lock(data->getMutex());
-
-    string temp;
-    char reminder[256];
-    bzero(reminder, 256);
-    int newsockfd = sockfd;
-    std::cout << "gad" << std::endl;
+    /* If connection is established then start communicating */
+    int fu_k = 0;
     while (true) {
-/* If connection is established then start communicating */
-        bzero(buffer, 256);
-        //sleep for this->Hz
-        n = read(newsockfd, buffer, 255);
+        if (fu_k) exit(1);
+        auto out = read_until(sockfd, "\n", remainder);
+        remainder = out.second;
+        buff = out.first;
 
-        if (n < 0) {
-            perror("ERROR reading from socket");
-            exit(1);
-        }
-        // convert the buffer to list of doubles
-        list<double> ls;
-        temp = "";
-        int countR = 0;
-        while (strlen(reminder) != 0) {
-            countR++;
-        }
-        // create new buf = reminder + buffer
-        char buf[256];
-        for (int l = 0; l < countR; ++l) {
-            buf[l] = reminder[l];
-        }
-        for (countR; countR < 256; ++countR) {
-            buf[countR] = buffer[countR];
-        }
 
-        // convert buf to list of doubles and keep the reminder
-        bzero(reminder, 256);
-        for (long i = 0; i < 256; i++) {
-            if (buf[i] == 10) {
-                i++;
-                double value = atof(temp.c_str());
-                ls.push_back(value);
-                temp = "";
-                int k = 0;
-                // keep reminder
-                for (i; i < 256; i++) {
-                    reminder[k] = buf[i];
-                    k++;
-                }
-                break;
-            } else if (buf[i] == ',') {
-                double value = atof(temp.c_str());
-                ls.push_back(value);
-                temp = "";
-            } else {
-                temp.push_back(buf[i]);
-            }
+        list<double> info;
+        try {
+            info = split(buff);
+        } catch (std::exception &e) {
+            int i = 0;
         }
+//        cout << info.size() << endl;
+
         string key = "";
+//            int j = 0;
         int j = 0;
-        // put in the map the keys and their values or change exits keys
-        list<double>::iterator it;
-        for (it = ls.begin(); it != ls.end(); ++it) {
+        for (double &it : info) {
             switch (j) {
                 case 0:
                     key = "/instrumentation/airspeed-indicator/indicated-speed-kt";
@@ -286,22 +255,38 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
                     cout << "gaddi" << endl;
                     break;
             }
-            data->setSymTbl(key, *it);
-            ++j;
+            j++;
+
+
+            if (data->has_key(key)) {
+                (*data)[key]->setVal(it);
+            } else {
+                auto *variable = new Variable;
+                variable->setVal(it);
+                variable->setIsBound(true);
+                variable->setPath(key);
+                data->addToNewTable(key, variable);
+            }
+            if (j==22){
+                cout<<it<<endl;
+            }
         }
-
-//        printf("Here is the message: %s\n", buf);
-        bzero(buf, 256);
-
-/* Write a response to the client */
-        n = write(newsockfd, "I got your message", 18);
-
-        if (n < 0) {
-            perror("ERROR writing to socket");
-            exit(1);
-        }
-        int Hz = (data->getHz());
-        usleep(1 / Hz);
-
     }
+}
+
+list<double> OpenServerCommand::split(string buffer) {
+    list<double> ret;
+
+    size_t pos = 0;
+    string delimiter = ",";
+    size_t begin = 0;
+
+    while ((pos = buffer.find(delimiter, begin)) != string::npos) {
+        string temp = buffer.substr(begin, pos);
+        ret.push_back(stod(temp));
+        begin = pos + delimiter.length();
+    }
+
+    ret.push_back(stod(buffer.substr(begin)));
+    return ret;
 }
