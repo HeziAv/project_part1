@@ -5,7 +5,7 @@
 #include "WhileCommand.h"
 #include "Interpeter.h"
 
-double WhileCommand::doCommand(Data* data)
+void WhileCommand::doCommand(Data* data)
 {
     while (this->cond.isTrue())
     {

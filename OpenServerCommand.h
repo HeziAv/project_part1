@@ -25,7 +25,7 @@ public:
         this->data=data;
     };
 
-    double doCommand(Data* data) override;
+    void doCommand(Data* data);
 
     void setParameters(list<string> ls,Data* data1) override;
 

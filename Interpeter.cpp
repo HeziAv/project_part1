@@ -34,32 +34,10 @@ list<string> Interpeter::miniLexer(list<string> ls) {
             if(*it == ","){
                 object = *it;
             }
-//            // in case of print
-//            if(*it == "print"){
-//                object = *it;
-//                newList.push_back(object);
-//                ++it;
-//                if(*it == "\""){
-//                    newList.push_back("\"");
-//                    string val;
-//                    for (it; it != ls.end() ; ++it) {
-//                        if(*it != "\""){
-//                            val = val + *it;
-//                        }
-//                    }
-//                    newList.push_back(val);
-//                    newList.push_back("\"");
-//                    return newList;
-//                }else{
-//                    --it;
-//                    continue;
-//                }
-//            }
             object = *it;
             newList.push_back(object);
             continue;
         }
-        int flag = 0;
         if(*it == "("){
             object = "";
         }
@@ -146,7 +124,8 @@ list<string>Interpeter:: lexer(string str) {
     string num;
     int number = 0;
     int var = 0;
-    for (long index = 0 ; index < str.length();index++) {
+    int le = str.length();
+    for (long index = 0 ; index < le;index++) {
         if (str[index] != ' ') {
             if(object == "bind" || object == "while" || object == "if"){
                 count = index;
@@ -196,7 +175,8 @@ list<string>Interpeter:: lexer(string str) {
                     int x = 0;
                     string checkc;
                     for (bef = listOfStrings.begin();bef != listOfStrings.end();++bef) {
-                        if(x < listOfStrings.size())
+                        int sizels = listOfStrings.size();
+                        if(x < sizels)
                             checkc = *bef;
                         ++x;
                     }
@@ -283,7 +263,8 @@ list<string>Interpeter:: lexer(string str) {
             count++;
         }
         string address;
-        for(int i = count;i<str.length();i++){
+        int len = str.length();
+        for(int i = count;i<len;i++){
             if(str[i] != '\"')
             address.push_back(str[i]);
         }
@@ -297,7 +278,8 @@ list<string>Interpeter:: lexer(string str) {
             count++;
         }
         string address;
-        for(int i = count;i<str.length();i++){
+        int len1 = str.length();
+        for(int i = count;i<len1;i++){
             if(str[i] == 32)
                 continue;
             if(str[i] != '(' && str[i] != ')' && str[i] != '{') {
@@ -331,7 +313,8 @@ list<string>Interpeter:: lexer(string str) {
         string newString = "";
 
         // check if in the string problem chars
-        for (long i = 0; i < temp.length() ; ++i) {
+        int len3 = temp.length();
+        for (int i = 0; i < len3 ; ++i) {
             if(temp.length() == 1){
                 if(!(isalpha(temp[0]) || isdigit(temp[0]) || isFixToken(temp[0]))){
                     cout<<"error"<<endl;

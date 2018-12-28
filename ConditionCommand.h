@@ -21,7 +21,7 @@ public:
         this->data=data;
     }
 
-    virtual double doCommand(Data *data2){};
+    virtual void doCommand(Data *data2){};
     virtual void setParameters(list<string> ls, Data* data1);
     bool isTrue();
 };

@@ -98,20 +98,21 @@ vector<string> ShuntingYard::infixToPostfix(string s){
 Expression* ShuntingYard::stringToExpression(vector<string> postfix) {
     stack<Expression *> stack;
     Expression* ex;
-    int flag = 0;
     // clear empty strings in the vector
     if(postfix[0] == ""){
         postfix.erase (postfix.begin());
     }
-    for(int i = 0; i < postfix.size(); ++i){
+    int x = postfix.size();
+    for(int i = 0; i < x; ++i){
         if(postfix[i] == "")
         postfix.erase (postfix.begin()+i);
     }
-    for (int i = 0; i < postfix.size(); ++i) {
+    for (int i = 0; i < x; ++i) {
        int var = 0;
        int flagMinus = 0;
        if (!isOperatorS(postfix[i])) {
-           for(int j = 0;j < (postfix[i].size());j++) {
+           int postSize = postfix[i].size();
+           for(int j = 0;j < (postSize);j++) {
                if(isdigit(postfix[i][j])) {
                    continue;
                    // it is a number, so do some code

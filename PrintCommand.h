@@ -18,7 +18,7 @@ public:
         PrintCommand(Data* data){
             this->data=data;
         }
-        virtual double doCommand(Data* data);
+        virtual void doCommand(Data* data);
         virtual void setParameters(list<string> ls,Data* data);
 
     };

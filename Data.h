@@ -36,22 +36,10 @@ public:
 
     void setGlobal(string s) {
 
-//        if (global==""){
-//            global=s;
-//        }else{
-//            cout<<"error : multipling globals to server"<<endl;
-//            throw 0;
-//        }
-//    }
-
         char buffer[256];
         for (int i = 0; i < 256; i++) {
             buffer[i] = '\000';
         }
-
-//    while (true) {
-
-//        if (data->getGlobal() != "") {
 
         int n;
 
@@ -67,7 +55,8 @@ public:
 //            fgets(buffer, 255, stdin);
 
 //            string s = global;
-        for (int i = 0; i < s.length(); i++) {
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
             buffer[i] = s[i];
         }
 

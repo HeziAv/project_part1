@@ -5,7 +5,7 @@
 #include "ifCommand.h"
 #include "Interpeter.h"
 
-double ifCommand::doCommand(Data* data)
+void ifCommand::doCommand(Data* data)
 {
     if (this->cond.isTrue() == true) /////// cond.isTrue())
     {
@@ -31,7 +31,6 @@ void ifCommand::setParameters(list<string> ls)
     list<string> lss;
     this->conditionLine = inn->lexer(*it);
     cond.setParameters(this->conditionLine, data);
-    int i = 0;
     ++it;
     for (; it != ls.end(); ++it) {
         if (*it == "}")

@@ -39,11 +39,15 @@ void ConditionCommand::setParameters(list<string> ls,Data* data1) {
                     this->condition = true;
                 else
                     this->condition = false;
-            } else if (c == ">")
+            } else if (c == ">") {
                 if (check < 0)
                     this->condition = false;
                 else
                     this->condition = true;
+            } else{
+                cout<<"error"<<endl;
+                exit(1);
+            }
         } else if (v.size() == 6) {
             c = c + v[3];
             if (c == "==") {
@@ -67,8 +71,14 @@ void ConditionCommand::setParameters(list<string> ls,Data* data1) {
                 else
                     this->condition = false;
             }
+        } else{
+            cout<<"error"<<endl;
+            exit(1);
         }
     }
 }
+
+
+
 
 

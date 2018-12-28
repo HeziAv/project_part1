@@ -11,13 +11,13 @@
 class varCommand : public Command {
 string first;
 Data* data;
-Variable* var = new Variable();
+Variable* var = new Variable;
 
 public:
     varCommand(Data* data){
         this->data=data;
     }
-    double doCommand(Data *data) {
+    void doCommand(Data *data) {
         var->setVal(0);
         var->setIsBound(false);
         var->setPath("");

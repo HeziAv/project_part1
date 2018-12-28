@@ -37,23 +37,20 @@ struct MyParams {
 };
 //mutex mtx;
 
-double OpenServerCommand::doCommand(Data *data) {
+void OpenServerCommand::doCommand(Data *data) {
 
     ShuntingYard a;
     vector<string> postfix;
     postfix = a.infixToPostfix(this->first);
     Expression *ExFirst = a.stringToExpression(postfix);
     postfix = a.infixToPostfix(this->second);
-    Expression *ExSecond = a.stringToExpression(postfix);
 
 
     int port = (int) ExFirst->calculate(data);
 //    cout << port << endl;
 
     int sockfd, newsockfd, portno, clilen;
-    char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
-    int n;
 
 /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -98,7 +95,6 @@ double OpenServerCommand::doCommand(Data *data) {
     serverThread.detach();
 //    serverThread.join();
 
-    return 2;
 }
 
 
@@ -152,7 +148,6 @@ pair<string, string> read_until(int sockfd, string sep, string remainder) {
 }
 
 void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
-    char buffer[256];
     string remainder;
     string buff;
 
@@ -169,7 +164,6 @@ void *OpenServerCommand::server_Sock(int sockfd, Data *data) {
         try {
             info = split(buff);
         } catch (std::exception &e) {
-            int i = 0;
         }
 //        cout << info.size() << endl;
 

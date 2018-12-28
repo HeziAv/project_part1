@@ -12,7 +12,7 @@ public:
 
     WhileCommand(Data* data) : ifCommand(data){
     }
-    virtual double doCommand(Data* data);
+    virtual void doCommand(Data* data);
 };
 
 

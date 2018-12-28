@@ -14,7 +14,7 @@ class EnterCCommand : public Command {
 public:
     EnterCCommand(){
     };
-    virtual double doCommand(Data* data){
+    virtual void doCommand(Data* data){
         char i;
 //        std::cout << "enter a c" << std::endl;
         std::cin >> i ;

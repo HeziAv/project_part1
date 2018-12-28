@@ -21,7 +21,7 @@ using namespace std;
 #include <thread>
 
 
-double connectCommand::doCommand(Data *data4) {
+void connectCommand::doCommand(Data *data4) {
 
     ShuntingYard a;
     vector<string> postfix;
@@ -30,10 +30,9 @@ double connectCommand::doCommand(Data *data4) {
     Expression *ExFirst = a.stringToExpression(postfix);
 
     int port2 = (int) ExFirst->calculate(data4);
-    int sockfd, portno, n;
+    int sockfd, portno;
     struct sockaddr_in serv_addr;
     struct hostent *server;
-    char buffer[256];
 
     portno = port2;
 
@@ -68,7 +67,6 @@ data4->setSockfd(sockfd);
 //    serverThread.detach();
 //serverThread.join();
 
-    return 2;
 }
 
 
@@ -90,62 +88,6 @@ void connectCommand::setParameters(list<string> ls, Data *data1) {
         i = i + 1;
     }
 }
-
-//void connectCommand::client_sock(int sockfd, string global) {}
-//    char buffer[256];
-//    for (int i = 0; i < 256; i++) {
-//        buffer[i] = '\000';
-//    }
-//
-////    while (true) {
-//
-////        if (data->getGlobal() != "") {
-//
-//            int n;
-//
-//
-//            /* Now ask for a message from the user, this message
-//               * will be read by server
-//            */
-//            cout << "Please enter the message: " << endl;
-//
-//
-//            bzero(buffer, 256);
-//
-//            fgets(buffer, 255, stdin);
-//
-//            string s = global;
-//            for (int i = 0; i < s.length(); i++) {
-//                buffer[i] = s[i];
-//            }
-//
-//            /* Send message to the server */
-//
-//            n = write(sockfd, buffer, strlen(buffer));
-//
-//
-//            if (n < 0) {
-//                perror("ERROR writing to socket");
-//                exit(1);
-//            }
-//
-//            /* Now read server response */
-//            bzero(buffer, 256);
-//            n = read(sockfd, buffer, 255);
-//
-//            if (n < 0) {
-//                perror("ERROR reading from socket");
-//                exit(1);
-//            }
-//
-////            cout << buffer << endl;
-//
-////        printf("%s\n", buffer);
-//
-////            data->setGlobal("");
-////        }
-////    }
-//}
 
 
 

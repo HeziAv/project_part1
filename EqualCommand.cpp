@@ -28,7 +28,7 @@ using namespace std;
 //};
 
 
-double EqualCommand::doCommand(Data *data2) {
+void EqualCommand::doCommand(Data *data2) {
     // if there is bind
     if (this->isAbind) {
         if (data2->has_key(this->second)) {
@@ -177,7 +177,6 @@ double EqualCommand::doCommand(Data *data2) {
 //            data2->setSymTbl(this->first, sec);
 //        }
 //    }
-    return 3;
 }
 
 
@@ -206,7 +205,7 @@ void EqualCommand::setParameters(list<string> ls, Data *data) {
     if (flag == 0)
         this->isVar = false;
     // take the variable after =
-    for (it; it != ls.end(); ++it) {
+    for (it;it != ls.end(); ++it) {
         if (*it == "=") {
             ++it;
             if (*it == "bind") {

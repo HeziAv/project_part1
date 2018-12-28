@@ -16,8 +16,8 @@ class Command {
     Data* data;
     list<string> ls;
 public:
-    virtual double doCommand(Data* data){};
-    virtual void setParameters(list<string> ls,Data* data1){};
+    virtual void doCommand(Data* data)=0;
+    virtual void setParameters(list<string> ls,Data* data1)=0;
     virtual ~Command() = default;
 
 };

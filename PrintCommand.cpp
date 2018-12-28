@@ -28,7 +28,7 @@ void PrintCommand::setParameters(list<string> ls, Data *data1) {
     }
 }
 
-double PrintCommand::doCommand(Data *data) {
+void PrintCommand::doCommand(Data *data) {
     // check if need to print the value or the variable with ""
     if (this->Quotation_mark == true) {
         cout << this->first << endl;

@@ -10,5 +10,6 @@ ExpressionCommand ::ExpressionCommand(Command* command) {
 
 
 double ExpressionCommand::calculate(Data* data) {
-    return command->doCommand(data);
+    command->doCommand(data);
+    return 2;
 }
