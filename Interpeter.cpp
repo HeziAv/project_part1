@@ -362,7 +362,6 @@ void Interpeter::parser(list<string> ls) {
         it = ls.begin();
         list<string> firstList = lexer(*it);
         ExpressionCommand *expressionCommand = commandMap.find(*firstList.begin())->second;
-
         if (expressionCommand != NULL) {
             expressionCommand->setData(data);
             expressionCommand->setParameters1(ls,data);

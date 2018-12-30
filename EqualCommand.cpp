@@ -180,7 +180,6 @@ void EqualCommand::doCommand(Data *data2) {
 }
 
 
-
 void EqualCommand::setParameters(list<string> ls, Data *data) {
     list<string>::iterator it;
     this->first = "";
@@ -205,7 +204,7 @@ void EqualCommand::setParameters(list<string> ls, Data *data) {
     if (flag == 0)
         this->isVar = false;
     // take the variable after =
-    for (it;it != ls.end(); ++it) {
+    for (; it != ls.end(); ++it) {
         if (*it == "=") {
             ++it;
             if (*it == "bind") {
